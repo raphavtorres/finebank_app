@@ -21,7 +21,7 @@ export default function Welcome() {
 			<Text style={styles.parag}>
 				Conta gratuita, empréstimo e muito mais: tudo num único app.
 			</Text>
-			<ButtonWide />
+			<ButtonWide btnMsg="Começar" />
 		</View>
 	);
 }

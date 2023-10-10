@@ -3,10 +3,10 @@ import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 
 import { COLORS } from "../style/constants";
 
-export default function ButtonWide() {
+export default function ButtonWide(props) {
 	return (
 		<TouchableOpacity style={styles.btnContainer}>
-			<Text style={styles.txt}>Começar</Text>
+			<Text style={styles.txt}>{props.btnMsg}</Text>
 			<Image
 				source={require("../assets/arrow-btn-img.png")}
 				style={styles.arrow}
