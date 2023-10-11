@@ -5,7 +5,7 @@ import { COLORS } from "../style/constants";
 
 export default function ButtonWide(props) {
 	return (
-		<TouchableOpacity style={styles.btnContainer}>
+		<TouchableOpacity style={styles.btnContainer} onPress={props.action}>
 			<Text style={styles.txt}>{props.btnMsg}</Text>
 			<Image
 				source={require("../assets/arrow-btn-img.png")}

@@ -4,27 +4,38 @@ import {
 	View,
 	ImageBackground,
 	TouchableWithoutFeedback,
+	Keyboard,
 	KeyboardAvoidingView,
+	Image
 } from "react-native";
 
-import { styles } from "./styles";
+import { styles } from "./style";
 import ButtonWide from "../../components/ButtonWide";
+import LoginHeader from "../../components/LoginHeader";
+import LoginForm from "../../components/LoginForm";
 
-export default function index() {
+export default function Login() {
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-				<KeyboardAvoidingView behavior="position" enabled>
-					<ImageBackground
+				 <KeyboardAvoidingView > 
+					<View>
+							<Image style={{position: "absolute", right: 0}}source={require("../../assets/teste.png")}/>
+							<LoginHeader />
+							<LoginForm/>
+					{/* <ImageBackground
 						source={require("../../assets/background-img.png")}
 						style={styles.imageBackground}
 					>
-						<Text style={styles.title}>Olá, Bem-Vindo Novamente</Text>
+						<LoginHeader />
+						<LoginForm />
 
-						<ButtonWide btnMsg="Login" />
-					</ImageBackground>{" "}
-				</KeyboardAvoidingView>
+					</ImageBackground> */}
+					</View>
+
+				 </KeyboardAvoidingView> 
 			</TouchableWithoutFeedback>
+
 		</View>
 	);
 }

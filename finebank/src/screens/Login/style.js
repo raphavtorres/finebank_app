@@ -4,17 +4,21 @@ import { COLORS } from "../../style/constants";
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		// backgroundColor: "red",
+		backgroundColor: COLORS.primaryBlack,
+		alignItems: "center",
 	},
 
 	imageBackground: {
 		flex: 1,
 		resizeMode: "cover",
-		justifyContent: "center",
+		// justifyContent: "center",
 		alignItems: "center",
+
 	},
 
 	title: {
-		marginTop: 54,
+		marginBottom: 5,
 		width: 399,
 		color: COLORS.primaryWhite,
 		// fontFamily: "Inter",
