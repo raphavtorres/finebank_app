@@ -20,8 +20,6 @@ export default function ButtonWide(props) {
 const styles = StyleSheet.create({
 	btnContainer: {
 		flex: 1,
-		justifyContent: "flex-end",
-		// backgroundColor: "red",
 	},
 
 	btnTouchable: {
@@ -31,9 +29,6 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		backgroundColor: COLORS.lightBlack,
 		flexDirection: "row",
-		// position: "absolute",
-		// bottom: 40,
-		// right: 10,
 	},
 
 	txt: {
@@ -50,6 +45,6 @@ const styles = StyleSheet.create({
 	arrow: {
 		width: 85,
 		height: 85,
-		alignSelf: "flex-center",
+		alignSelf: "center",
 	},
 });
