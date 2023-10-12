@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
-import { styles } from "../screens/Login/style";
+import { styles } from "./style";
 
 export default function LoginHeader() {
 	return (
-		<View style={{ maxWidth: "100%" }}>
-			<View style={{ marginTop: 58, marginLeft: 10 }}>
+		<View style={styles.container}>
+			<View style={{ marginTop: 90, marginLeft: 10 }}>
 				<Text style={styles.title}>Olá,</Text>
 			</View>
 			<View style={{ marginLeft: 40 }}>

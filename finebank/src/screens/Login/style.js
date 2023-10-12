@@ -4,9 +4,9 @@ import { COLORS } from "../../style/constants";
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// backgroundColor: "red",
-		backgroundColor: COLORS.primaryBlack,
+		justifyContent: "center",
 		alignItems: "center",
+		backgroundColor: COLORS.primaryBlack,
 	},
 
 	imageBackground: {
@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
 		resizeMode: "cover",
 		// justifyContent: "center",
 		alignItems: "center",
-
 	},
 
 	title: {
@@ -23,6 +22,12 @@ export const styles = StyleSheet.create({
 		color: COLORS.primaryWhite,
 		// fontFamily: "Inter",
 		fontSize: 36,
-		fontWeight: "500",
+		fontWeight: "700",
+	},
+
+	labelError: {
+		alignSelf: "flex-start",
+		color: "#ff375b",
+		marginBottom: 8,
 	},
 });
