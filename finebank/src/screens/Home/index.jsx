@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import { ProgressBar } from "react-native-paper";
 
 import { styles } from "./style";

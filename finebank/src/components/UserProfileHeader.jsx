@@ -18,6 +18,7 @@ export default function UserProfileHeader(props) {
 export const styles = StyleSheet.create({
 	profileView: {
 		marginTop: 35,
+		marginBottom: 40,
 		width: "95%",
 		flexDirection: "row",
 		alignItems: "center",
