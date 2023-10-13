@@ -6,16 +6,14 @@ import { styles } from "./style";
 import { COLORS } from "../../style/constants";
 
 import OptCard from "../../components/OptCard";
+import UserProfileHeader from "../../components/UserProfileHeader";
 // import { Card } from "react-pay-card";
 
 export default function Home() {
 	return (
 		<View style={styles.container}>
 			{/* USER PROFILE HEADER */}
-			<View style={styles.profileView}>
-				<Image source={require("../../assets/profile-img.png")} />
-				<Text style={styles.userName}>Olá, USER</Text>
-			</View>
+			<UserProfileHeader username="User" />
 
 			{/* CARD  */}
 			<View style={styles.card}></View>

@@ -9,20 +9,6 @@ export const styles = StyleSheet.create({
 		backgroundColor: COLORS.primaryBlack,
 	},
 
-	profileView: {
-		marginTop: 35,
-		width: "95%",
-		flexDirection: "row",
-		alignItems: "center",
-	},
-
-	userName: {
-		color: COLORS.primaryWhite,
-		fontSize: 18,
-		fontWeight: "500",
-		paddingLeft: 15,
-	},
-
 	card: {
 		marginTop: 50,
 		width: "95%",
