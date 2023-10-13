@@ -10,8 +10,6 @@ import ButtonWide from "../ButtonWide";
 import schema from "./schemaLogin";
 
 export default function LoginForm() {
-	const [inputValue, setInputValue] = useState("");
-
 	const {
 		control,
 		handleSubmit,
@@ -26,9 +24,9 @@ export default function LoginForm() {
 	}
 
 	function getInput(error, value) {
-		if (error) {
+		if (error != undefined) {
 			return [styles.input, styles.inputError];
-		} else if (!value) {
+		} else if (value === "") {
 			return styles.input;
 		}
 		return [styles.input, styles.inputOk];
