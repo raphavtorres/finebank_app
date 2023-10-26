@@ -10,7 +10,20 @@ import UserProfileHeader from "../../components/UserProfileHeader";
 import Card from "../../components/Card";
 
 export default function Home() {
-	const cardData = ["card1", "card2", "card3"];
+	const cardData = [
+		{
+			number: 111111111,
+			verification_code: 111,
+		},
+		{
+			number: 222222222,
+			verification_code: 222,
+		},
+		{
+			number: 333333333,
+			verification_code: 333,
+		},
+	];
 
 	return (
 		<View style={styles.container}>
