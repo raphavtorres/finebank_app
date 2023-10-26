@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { ProgressBar } from "react-native-paper";
 
 import { styles } from "./style";
@@ -7,7 +7,7 @@ import { COLORS } from "../../style/constants";
 
 import OptCard from "../../components/OptCard";
 import UserProfileHeader from "../../components/UserProfileHeader";
-// import { Card } from "react-pay-card";
+import Card from "../../components/Card";
 
 export default function Home() {
 	const cardData = ["card1", "card2", "card3"];
@@ -21,9 +21,7 @@ export default function Home() {
 				{/* CARD  */}
 				<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 					{cardData.map((item) => (
-						<View style={styles.card} key={item}>
-							<Text>{item}</Text>
-						</View>
+						<Card item={item} />
 					))}
 				</ScrollView>
 			</View>
