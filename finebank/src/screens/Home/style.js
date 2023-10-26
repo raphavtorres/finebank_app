@@ -10,10 +10,11 @@ export const styles = StyleSheet.create({
 	},
 
 	card: {
-		width: "95%",
-		height: 200,
+		width: 360,
+		height: 190,
 		borderRadius: 30,
 		backgroundColor: COLORS.lightBlack,
+		marginHorizontal: 5,
 	},
 
 	accBalanceView: {

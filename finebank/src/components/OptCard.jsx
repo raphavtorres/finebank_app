@@ -7,8 +7,10 @@ export default function OptCard(props) {
 			return <Image source={require("../assets/loan-icon-img.png")} />;
 		} else if (props.url == "transaction") {
 			return <Image source={require("../assets/transaction-icon-img.png")} />;
+		} else if (props.url == "investment") {
+			return <Image source={require("../assets/investment-icon-img.png")} />;
 		}
-		return <Image source={require("../assets/investment-icon-img.png")} />;
+		return <Image source={require("../assets/card-icon-img.png")} />;
 	}
 	return (
 		<View style={styles.optCard}>
@@ -23,6 +25,7 @@ export const styles = StyleSheet.create({
 		width: 125,
 		height: 125,
 		marginTop: 40,
+		marginHorizontal: 10,
 		paddingVertical: 20,
 		borderRadius: 15,
 		backgroundColor: COLORS.lightBlack,
