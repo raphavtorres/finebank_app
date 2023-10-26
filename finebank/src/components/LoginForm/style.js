@@ -25,10 +25,6 @@ export const styles = StyleSheet.create({
 		borderBottomColor: "#FC7676",
 	},
 
-	inputOk: {
-		borderBottomColor: "#67B06A",
-	},
-
 	labelError: {
 		maxWidth: "85%",
 		width: "85%",

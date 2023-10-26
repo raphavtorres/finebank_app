@@ -23,13 +23,11 @@ export default function LoginForm() {
 		console.log(data);
 	}
 
-	function getInput(error, value) {
-		if (error != undefined) {
+	function getInput(error) {
+		if (error) {
 			return [styles.input, styles.inputError];
-		} else if (value === "") {
-			return styles.input;
 		}
-		return [styles.input, styles.inputOk];
+		return styles.input;
 	}
 
 	return (
@@ -46,8 +44,7 @@ export default function LoginForm() {
 						name="cpfOrCnpj"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
-								style={getInput(errors.cpfOrCnpj, value)}
-								// onChangeText={onChange}
+								style={getInput(errors.cpfOrCnpj)}
 								onChangeText={(value) => {
 									onChange(value);
 									trigger("cpfOrCnpj");
@@ -59,7 +56,7 @@ export default function LoginForm() {
 							/>
 						)}
 					/>
-					{errors.cpfOrCnpj && (
+					{errors?.cpfOrCnpj && (
 						<Text style={styles.labelError}>{errors.cpfOrCnpj?.message}</Text>
 					)}
 
@@ -68,7 +65,7 @@ export default function LoginForm() {
 						name="password"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
-								style={getInput(errors.password, value)}
+								style={getInput(errors.password)}
 								onChangeText={onChange}
 								onBlur={onBlur} // when textinput is focused
 								value={value}
@@ -78,7 +75,7 @@ export default function LoginForm() {
 							/>
 						)}
 					/>
-					{errors.password && (
+					{errors?.password && (
 						<Text style={styles.labelError}>{errors.password?.message}</Text>
 					)}
 
