@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { styles } from "./style";
 import { COLORS } from "../../style/constants";
 import ButtonWide from "../ButtonWide";
-import schema from "./schemaLogin";
+import { schema } from "./schemaLogin";
 
 export default function LoginForm() {
 	const {
@@ -53,6 +53,7 @@ export default function LoginForm() {
 								value={value}
 								placeholder="CPF / CNPJ"
 								placeholderTextColor={COLORS.primaryGray}
+								maxLength={14}
 							/>
 						)}
 					/>
@@ -72,6 +73,7 @@ export default function LoginForm() {
 								placeholder="Sua senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								maxLength={20}
 							/>
 						)}
 					/>
