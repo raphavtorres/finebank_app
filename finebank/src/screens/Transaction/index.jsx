@@ -17,6 +17,7 @@ import { schema } from "./schemaTransaction";
 export default function Transaction() {
 	const [creditSelected, setCreditSelected] = useState(false);
 	const [debitSelected, setDebitSelected] = useState(false);
+	const [payMethodError, setPayMethodError] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
 
 	useEffect(() => {
@@ -33,6 +34,14 @@ export default function Transaction() {
 		}
 	}, [debitSelected]);
 
+	useEffect(() => {
+		if (!debitSelected && !creditSelected) {
+			setOptionSelected("");
+		} else {
+			setPayMethodError(false);
+		}
+	}, [debitSelected, creditSelected]);
+
 	const {
 		control,
 		handleSubmit,
@@ -43,7 +52,11 @@ export default function Transaction() {
 	});
 
 	function handleConfirm(data) {
-		console.log(data, optionSelected);
+		if (optionSelected == "") {
+			setPayMethodError(true);
+		} else {
+			console.log(data, optionSelected);
+		}
 	}
 
 	function getInput(error) {
@@ -124,15 +137,14 @@ export default function Transaction() {
 						text="Débito"
 					/>
 				</View>
-				{/* {missedSelection && (
+				{payMethodError && (
 					<Text style={styles.labelError}>
-						{errors.transactionAmount?.message}
+						Escolha uma forma de pagamento, é obrigatória.
 					</Text>
-				)} */}
+				)}
 			</View>
 			<View
 				style={{
-					// backgroundColor: "red",
 					height: "100%",
 					width: "100%",
 					justifyContent: "flex-end",
