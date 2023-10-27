@@ -1,32 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import {
-	View,
-	Text,
-	TextInput,
-	ScrollView,
-	TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput } from "react-native";
+
+// import { TextInputMask } from "react-native-masked-text";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { styles } from "./style";
 
 import UserProfileHeader from "../../components/UserProfileHeader";
 import ButtonWide from "../../components/ButtonWide";
 import SelectBtn from "../../components/SelectBtn";
+
 import { COLORS } from "../../style/constants";
+import { schema } from "./schemaTransaction";
 
 export default function Transaction() {
+	const [creditSelected, setCreditSelected] = useState(false);
+	const [debitSelected, setDebitSelected] = useState(false);
+	const [optionSelected, setOptionSelected] = useState("");
+
+	useEffect(() => {
+		if (creditSelected) {
+			setDebitSelected(false);
+			setOptionSelected("Credit");
+		}
+	}, [creditSelected]);
+
+	useEffect(() => {
+		if (debitSelected) {
+			setCreditSelected(false);
+			setOptionSelected("Debit");
+		}
+	}, [debitSelected]);
+
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
 		trigger,
 	} = useForm({
-		// resolver: yupResolver(schema),
+		resolver: yupResolver(schema),
 	});
 
 	function handleConfirm(data) {
-		console.log(data);
+		console.log(data, optionSelected);
 	}
 
 	function getInput(error) {
@@ -41,6 +58,7 @@ export default function Transaction() {
 			<UserProfileHeader username="User" />
 
 			<View style={styles.section}>
+				{/* TRANSACTION AMOUNT */}
 				<Text style={styles.label}>Qual o valor da transferência?</Text>
 				<Controller
 					control={control}
@@ -57,6 +75,7 @@ export default function Transaction() {
 							placeholder="R$"
 							placeholderTextColor={COLORS.primaryGray}
 							maxLength={7}
+							keyboardType="numeric"
 						/>
 					)}
 				/>
@@ -66,14 +85,17 @@ export default function Transaction() {
 					</Text>
 				)}
 
+				{/* CPF / CNPJ */}
 				<Text style={styles.label}>Para quem vai transferir?</Text>
 				<Controller
 					control={control}
 					name="cpfOrCnpj"
 					render={({ field: { onChange, onBlur, value } }) => (
 						<TextInput
+							// type={"cpf"}
 							style={getInput(errors.cpfOrCnpj)}
 							onChangeText={(value) => {
+								// onChange(value.replaceAll(".", "").replaceAll("-", ""));
 								onChange(value);
 								trigger("cpfOrCnpj");
 							}}
@@ -82,6 +104,7 @@ export default function Transaction() {
 							placeholder="CPF / CNPJ"
 							placeholderTextColor={COLORS.primaryGray}
 							maxLength={14}
+							keyboardType="numeric"
 						/>
 					)}
 				/>
@@ -90,9 +113,22 @@ export default function Transaction() {
 				)}
 				<Text style={styles.label}>Qual o método de pagamento?</Text>
 				<View style={{ width: "95%", flexDirection: "row", marginTop: 20 }}>
-					<SelectBtn text="Crédito" />
-					<SelectBtn text="Débito" />
+					<SelectBtn
+						selected={creditSelected}
+						setSelected={setCreditSelected}
+						text="Crédito"
+					/>
+					<SelectBtn
+						selected={debitSelected}
+						setSelected={setDebitSelected}
+						text="Débito"
+					/>
 				</View>
+				{/* {missedSelection && (
+					<Text style={styles.labelError}>
+						{errors.transactionAmount?.message}
+					</Text>
+				)} */}
 			</View>
 			<View
 				style={{

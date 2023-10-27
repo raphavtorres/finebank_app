@@ -1,18 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, Image, Pressable, View } from "react-native";
 
 import { COLORS } from "../style/constants";
 
 export default function ButtonWide(props) {
 	return (
 		<View style={styles.btnContainer}>
-			<TouchableOpacity style={styles.btnTouchable} onPress={props.action}>
+			<Pressable style={styles.btnTouchable} onPress={props.action}>
 				<Text style={styles.txt}>{props.btnMsg}</Text>
 				<Image
 					source={require("../assets/arrow-btn-img.png")}
 					style={styles.arrow}
 				/>
-			</TouchableOpacity>
+			</Pressable>
 		</View>
 	);
 }

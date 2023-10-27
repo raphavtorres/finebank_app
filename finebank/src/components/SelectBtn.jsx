@@ -1,11 +1,18 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { COLORS } from "../style/constants";
+import { useState } from "react";
 
 export default function SelectBtn(props) {
 	return (
-		<View style={styles.btnBox}>
+		<Pressable
+			// style={styles.btnBoxSelect}
+			style={
+				props.selected ? [styles.btnBox, styles.btnBoxSelect] : styles.btnBox
+			}
+			onPress={() => props.setSelected(!props.selected)}
+		>
 			<Text style={styles.btnText}>{props.text}</Text>
-		</View>
+		</Pressable>
 	);
 }
 
@@ -18,6 +25,11 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginRight: 20,
+	},
+
+	btnBoxSelect: {
+		borderWidth: 2,
+		borderColor: COLORS.lightYellow,
 	},
 
 	btnText: {
