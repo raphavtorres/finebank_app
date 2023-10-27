@@ -19,7 +19,7 @@ export default function Login() {
 					<View>
 						<Image
 							style={{ position: "absolute", right: 0 }}
-							source={require("../../assets/teste.png")}
+							source={require("../../assets/header-component-img.png")}
 						/>
 						<LoginHeader />
 						<LoginForm />
