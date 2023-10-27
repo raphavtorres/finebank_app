@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 
 import { styles } from "./style";
 
@@ -46,7 +46,7 @@ export default function Loan() {
 
 			{/* INSTALLMENTS */}
 			<View style={[styles.section, styles.sectionInstallment]}>
-				<Text style={styles.sectionLabel}>Parcelas</Text>
+				<Text style={styles.sectionLabel}>Fatura</Text>
 				<ScrollView>
 					<InstallmentCard
 						number="00234"
@@ -64,6 +64,13 @@ export default function Loan() {
 						expiration_date="13/09/2023"
 					/>
 				</ScrollView>
+				<View
+					style={{ height: 60, alignItems: "center", justifyContent: "center" }}
+				>
+					<TouchableOpacity style={styles.payInstallmentBtn}>
+						<Text style={styles.payInstallmentTxt}>Pagar</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</View>
 	);

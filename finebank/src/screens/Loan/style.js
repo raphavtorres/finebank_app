@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
 	},
 
 	section: {
-		flex: 2,
+		flex: 1,
 		width: "95%",
 		marginBottom: 10,
 	},
@@ -23,5 +23,21 @@ export const styles = StyleSheet.create({
 		color: COLORS.primaryWhite,
 		fontSize: 20,
 		fontWeight: "500",
+	},
+
+	payInstallmentBtn: {
+		width: 116,
+		height: 33,
+		borderRadius: 5,
+		backgroundColor: COLORS.lightYellow,
+		justifyContent: "center",
+		alignItems: "center",
+		marginHorizontal: 5,
+	},
+
+	payInstallmentTxt: {
+		color: COLORS.primaryBlack,
+		fontSize: 16,
+		fontWeight: "700",
 	},
 });

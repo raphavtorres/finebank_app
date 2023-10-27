@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
 import { ProgressBar } from "react-native-paper";
 
 import { styles } from "./style";
@@ -12,16 +12,19 @@ import Card from "../../components/Card";
 export default function Home() {
 	const cardData = [
 		{
-			number: 111111111,
-			verification_code: 111,
+			number: "5385 8035 1276 7881",
+			verification_code: 748,
+			flag: "MasterCard",
 		},
 		{
-			number: 222222222,
-			verification_code: 222,
+			number: "5349 4491 8052 3662",
+			verification_code: 403,
+			flag: "Visa",
 		},
 		{
-			number: 333333333,
-			verification_code: 333,
+			number: "5324 1639 8608 4949",
+			verification_code: 757,
+			flag: "Elo",
 		},
 	];
 
@@ -34,14 +37,20 @@ export default function Home() {
 				{/* CARD  */}
 				<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 					{cardData.map((item) => (
-						<Card item={item} />
+						<Card item={item} key={item.number} />
 					))}
 				</ScrollView>
 			</View>
 
 			{/* ACCOUNT BALANCE */}
 			<View style={styles.accBalanceView}>
-				<Text style={styles.labelAccBalance}>Extrato</Text>
+				<Text style={styles.labelAccBalance}>
+					Extrato{"   "}
+					<Image
+						style={{ width: 8, height: 12 }}
+						source={require("../../assets/arrow-icon.png")}
+					/>
+				</Text>
 				<Text style={styles.amountAccBalance}>R$ 3000.00</Text>
 			</View>
 			{/* OPTIONS CARDS */}
