@@ -1,5 +1,5 @@
 import { Text, View, TextInput, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
