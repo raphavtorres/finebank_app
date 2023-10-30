@@ -6,9 +6,10 @@ export default function SelectBtn(props) {
 	return (
 		<Pressable
 			// style={styles.btnBoxSelect}
-			style={
-				props.selected ? [styles.btnBox, styles.btnBoxSelect] : styles.btnBox
-			}
+			style={[
+				{ width: props.width },
+				props.selected ? [styles.btnBox, styles.btnBoxSelect] : styles.btnBox,
+			]}
 			onPress={() => props.setSelected(!props.selected)}
 		>
 			<Text style={styles.btnText}>{props.text}</Text>
@@ -18,7 +19,6 @@ export default function SelectBtn(props) {
 
 export const styles = StyleSheet.create({
 	btnBox: {
-		width: 112,
 		height: 70,
 		borderRadius: 20,
 		backgroundColor: COLORS.lightBlack,

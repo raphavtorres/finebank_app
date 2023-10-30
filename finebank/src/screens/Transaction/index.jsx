@@ -130,11 +130,13 @@ export default function Transaction() {
 						selected={creditSelected}
 						setSelected={setCreditSelected}
 						text="Crédito"
+						width={112}
 					/>
 					<SelectBtn
 						selected={debitSelected}
 						setSelected={setDebitSelected}
 						text="Débito"
+						width={112}
 					/>
 				</View>
 				{payMethodError && (
