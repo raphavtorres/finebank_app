@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Text, View, TextInput, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
@@ -8,10 +8,37 @@ import { TextInputMask } from "react-native-masked-text";
 
 import { styles } from "./style";
 import { COLORS } from "../../style/constants";
+
 import ButtonWide from "../ButtonWide";
+import SelectBtn from "../SelectBtn";
+
 import { schema } from "./schemaSignUpPF";
 
 export default function SignUpPFForm() {
+	const [PJselected, setPJselected] = useState(false);
+	const [PFselected, setPFselected] = useState(false);
+	const [optionSelected, setOptionSelected] = useState("");
+
+	useEffect(() => {
+		if (PJselected) {
+			setPFselected(false);
+			setOptionSelected("PJ");
+		}
+	}, [PJselected]);
+
+	useEffect(() => {
+		if (PFselected) {
+			setPJselected(false);
+			setOptionSelected("PF");
+		}
+	}, [PFselected]);
+
+	useEffect(() => {
+		if (!PFselected && !PJselected) {
+			setOptionSelected("");
+		}
+	}, [PFselected, PJselected]);
+
 	const {
 		control,
 		handleSubmit,
@@ -215,6 +242,27 @@ export default function SignUpPFForm() {
 					{errors?.birthdate && (
 						<Text style={styles.labelError}>{errors.birthdate?.message}</Text>
 					)}
+				</View>
+				<View
+					style={{
+						flexDirection: "row",
+						width: "85%",
+						alignSelf: "center",
+						marginTop: 30,
+					}}
+				>
+					<SelectBtn
+						selected={PFselected}
+						setSelected={setPFselected}
+						text="Corrente"
+						width={112}
+					/>
+					<SelectBtn
+						selected={PJselected}
+						setSelected={setPJselected}
+						text="Poupança"
+						width={112}
+					/>
 				</View>
 				<View
 					style={{
