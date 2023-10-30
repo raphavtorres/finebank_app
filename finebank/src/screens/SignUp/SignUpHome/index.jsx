@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 
 import { styles } from "./style";
-import SignUpHeader from "../../components/SignupHeader/SignUpHeader";
-import SelectBtn from "../../components/SelectBtn";
-import ButtonWide from "../../components/ButtonWide";
+import SignUpHeader from "../../../components/SignupHeader/SignUpHeader";
+import SelectBtn from "../../../components/SelectBtn";
+import ButtonWide from "../../../components/ButtonWide";
 
-export default function CreateAccountHome() {
+export default function SignUpHome() {
 	const [PJselected, setPJselected] = useState(false);
 	const [PFselected, setPFselected] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");

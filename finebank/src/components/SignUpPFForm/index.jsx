@@ -1,0 +1,230 @@
+import React, { useState } from "react";
+
+import { Text, View, TextInput, ScrollView } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import { TextInputMask } from "react-native-masked-text";
+
+import { styles } from "./style";
+import { COLORS } from "../../style/constants";
+import ButtonWide from "../ButtonWide";
+import { schema } from "./schemaSignUpPF";
+
+export default function SignUpPFForm() {
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		trigger,
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+
+	function handleSignUp(data) {
+		console.log(data);
+	}
+
+	function getInput(error) {
+		if (error) {
+			return [styles.input, styles.inputError];
+		}
+		return styles.input;
+	}
+
+	return (
+		<>
+			<ScrollView
+				style={{
+					width: "100%",
+					maxWidth: "100%",
+				}}
+			>
+				<View style={styles.container}>
+					{/* CPF */}
+					<Controller
+						control={control}
+						name="cpf"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"cpf"}
+								style={getInput(errors.cpf)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("cpf");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="CPF"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={14}
+							/>
+						)}
+					/>
+					{errors?.cpf && (
+						<Text style={styles.labelError}>{errors.cpf?.message}</Text>
+					)}
+
+					{/* RG */}
+					<Controller
+						control={control}
+						name="rg"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"only-numbers"}
+								style={getInput(errors.rg)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("rg");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="RG"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={10}
+							/>
+						)}
+					/>
+					{errors?.rg && (
+						<Text style={styles.labelError}>{errors.rg?.message}</Text>
+					)}
+
+					{/* FULL NAME */}
+					<Controller
+						control={control}
+						name="fullname"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInput
+								style={getInput(errors.fullname)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("fullname");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="Nome Completo"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={40}
+							/>
+						)}
+					/>
+					{errors?.fullname && (
+						<Text style={styles.labelError}>{errors.fullname?.message}</Text>
+					)}
+
+					{/* SOCIAL NAME */}
+					<Controller
+						control={control}
+						name="socialname"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInput
+								style={getInput(errors.socialname)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("socialname");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="Nome Social"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={40}
+							/>
+						)}
+					/>
+					{errors?.socialname && (
+						<Text style={styles.labelError}>{errors.socialname?.message}</Text>
+					)}
+
+					{/* TELEPHONE */}
+					<Controller
+						control={control}
+						name="telephone"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"cel-phone"}
+								options={{
+									maskType: "BRL",
+									withDDD: true,
+									dddMask: "(99) ",
+								}}
+								style={getInput(errors.telephone)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("telephone");
+								}}
+								onBlur={onBlur}
+								value={value}
+								// value={value.getRawValue()}
+								placeholder="Telefone"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={40}
+							/>
+						)}
+					/>
+					{errors?.telephone && (
+						<Text style={styles.labelError}>{errors.telephone?.message}</Text>
+					)}
+
+					{/* E-MAIL */}
+					<Controller
+						control={control}
+						name="email"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInput
+								style={getInput(errors.email)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("email");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="E-mail"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={40}
+							/>
+						)}
+					/>
+					{errors?.email && (
+						<Text style={styles.labelError}>{errors.email?.message}</Text>
+					)}
+
+					{/* BIRTHDATE */}
+					<Controller
+						control={control}
+						name="birthdate"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"datetime"}
+								options={{
+									format: "DD/MM/YYYY",
+								}}
+								style={getInput(errors.birthdate)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("birthdate");
+								}}
+								onBlur={onBlur}
+								value={value}
+								// value={value.getRawValue()}
+								placeholder="Data de nascimento"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={10}
+							/>
+						)}
+					/>
+					{errors?.birthdate && (
+						<Text style={styles.labelError}>{errors.birthdate?.message}</Text>
+					)}
+				</View>
+				<View
+					style={{
+						marginVertical: 40,
+					}}
+				>
+					<ButtonWide btnMsg="Etapa 2/3" />
+					{/* <ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleLogin)} /> */}
+				</View>
+			</ScrollView>
+		</>
+	);
+}

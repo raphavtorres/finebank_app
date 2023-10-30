@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { View, Text, TextInput } from "react-native";
 
-// import { TextInputMask } from "react-native-masked-text";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { styles } from "./style";
@@ -105,7 +104,6 @@ export default function Transaction() {
 					name="cpfOrCnpj"
 					render={({ field: { onChange, onBlur, value } }) => (
 						<TextInput
-							// type={"cpf"}
 							style={getInput(errors.cpfOrCnpj)}
 							onChangeText={(value) => {
 								// onChange(value.replaceAll(".", "").replaceAll("-", ""));

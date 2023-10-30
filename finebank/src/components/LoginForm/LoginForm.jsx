@@ -41,7 +41,7 @@ export default function LoginForm() {
 				<View style={styles.container}>
 					<Controller
 						control={control}
-						name="cpfOrCnpj"
+						name="cpf"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
 								style={getInput(errors.cpfOrCnpj)}
