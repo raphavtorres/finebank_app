@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
 		height: 220,
 		width: "95%",
 		marginBottom: 10,
-		marginTop: "20%",
+		marginTop: "30%",
 		justifyContent: "space-around",
 		alignItems: "center",
 	},

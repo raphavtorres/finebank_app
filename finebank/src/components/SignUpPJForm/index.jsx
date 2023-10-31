@@ -12,7 +12,7 @@ import { COLORS } from "../../style/constants";
 import ButtonWide from "../ButtonWide";
 import SelectBtn from "../SelectBtn";
 
-import { schema } from "./schemaSignUpPF";
+import { schema } from "./schemaSignUpPJ";
 
 export default function SignUpPFForm() {
 	const [PJselected, setPJselected] = useState(false);
@@ -69,104 +69,104 @@ export default function SignUpPFForm() {
 				}}
 			>
 				<View style={styles.container}>
-					{/* CPF */}
+					{/* CNPJ */}
 					<Controller
 						control={control}
-						name="cpf"
+						name="cnpj"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInputMask
-								type={"cpf"}
-								style={getInput(errors.cpf)}
+								type={"cnpj"}
+								style={getInput(errors.cnpj)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("cpf");
+									trigger("cnpj");
 								}}
 								onBlur={onBlur}
 								value={value}
-								placeholder="CPF"
+								placeholder="CNPJ"
 								placeholderTextColor={COLORS.primaryGray}
-								maxLength={14}
+								maxLength={18}
 							/>
 						)}
 					/>
-					{errors?.cpf && (
-						<Text style={styles.labelError}>{errors.cpf?.message}</Text>
+					{errors?.cnpj && (
+						<Text style={styles.labelError}>{errors.cnpj?.message}</Text>
 					)}
 
-					{/* RG */}
+					{/* INSCRIÇÃO MUNICIPAL */}
 					<Controller
 						control={control}
-						name="rg"
+						name="im"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInputMask
 								type={"only-numbers"}
-								style={getInput(errors.rg)}
+								style={getInput(errors.im)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("rg");
+									trigger("im");
 								}}
 								onBlur={onBlur}
 								value={value}
-								placeholder="RG"
+								placeholder="Inscrição Municipal"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={10}
 							/>
 						)}
 					/>
-					{errors?.rg && (
-						<Text style={styles.labelError}>{errors.rg?.message}</Text>
+					{errors?.im && (
+						<Text style={styles.labelError}>{errors.im?.message}</Text>
 					)}
 
-					{/* FULL NAME */}
+					{/* Inscrição Estadual */}
 					<Controller
 						control={control}
-						name="fullname"
+						name="ie"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
-								style={getInput(errors.fullname)}
+								style={getInput(errors.ie)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("fullname");
+									trigger("ie");
 								}}
 								onBlur={onBlur}
 								value={value}
-								placeholder="Nome Completo"
+								placeholder="Inscrição Estadual"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
 							/>
 						)}
 					/>
-					{errors?.fullname && (
-						<Text style={styles.labelError}>{errors.fullname?.message}</Text>
+					{errors?.ie && (
+						<Text style={styles.labelError}>{errors.ie?.message}</Text>
 					)}
 
-					{/* SOCIAL NAME */}
+					{/* NAME */}
 					<Controller
 						control={control}
-						name="socialname"
+						name="name"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
-								style={getInput(errors.socialname)}
+								style={getInput(errors.name)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("socialname");
+									trigger("name");
 								}}
 								onBlur={onBlur}
 								value={value}
-								placeholder="Nome Social"
+								placeholder="Nome"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
 							/>
 						)}
 					/>
-					{errors?.socialname && (
-						<Text style={styles.labelError}>{errors.socialname?.message}</Text>
+					{errors?.name && (
+						<Text style={styles.labelError}>{errors.name?.message}</Text>
 					)}
 
-					{/* TELEPHONE */}
+					{/* FANTASY NAME */}
 					<Controller
 						control={control}
-						name="telephone"
+						name="fantasyName"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInputMask
 								type={"cel-phone"}
@@ -175,6 +175,30 @@ export default function SignUpPFForm() {
 									withDDD: true,
 									dddMask: "(99) ",
 								}}
+								style={getInput(errors.fantasyName)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("fantasyName");
+								}}
+								onBlur={onBlur}
+								value={value}
+								// value={value.getRawValue()}
+								placeholder="Nome Fantasia"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={40}
+							/>
+						)}
+					/>
+					{errors?.fantasyName && (
+						<Text style={styles.labelError}>{errors.fantasyName?.message}</Text>
+					)}
+
+					{/* TELEPHONE */}
+					<Controller
+						control={control}
+						name="telephone"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInput
 								style={getInput(errors.telephone)}
 								onChangeText={(value) => {
 									onChange(value);
@@ -182,7 +206,6 @@ export default function SignUpPFForm() {
 								}}
 								onBlur={onBlur}
 								value={value}
-								// value={value.getRawValue()}
 								placeholder="Telefone"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
@@ -216,32 +239,34 @@ export default function SignUpPFForm() {
 						<Text style={styles.labelError}>{errors.email?.message}</Text>
 					)}
 
-					{/* BIRTHDATE */}
+					{/* ESTABLISHMENT DATE */}
 					<Controller
 						control={control}
-						name="birthdate"
+						name="establishmentDate"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInputMask
 								type={"datetime"}
 								options={{
 									format: "DD/MM/YYYY",
 								}}
-								style={getInput(errors.birthdate)}
+								style={getInput(errors.establishmentDate)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("birthdate");
+									trigger("establishmentDate");
 								}}
 								onBlur={onBlur}
 								value={value}
 								// value={value.getRawValue()}
-								placeholder="Data de nascimento"
+								placeholder="Data de estabelecimento"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={10}
 							/>
 						)}
 					/>
-					{errors?.birthdate && (
-						<Text style={styles.labelError}>{errors.birthdate?.message}</Text>
+					{errors?.establishmentDate && (
+						<Text style={styles.labelError}>
+							{errors.establishmentDate?.message}
+						</Text>
 					)}
 				</View>
 				<View

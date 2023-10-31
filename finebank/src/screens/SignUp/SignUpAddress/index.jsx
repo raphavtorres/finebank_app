@@ -8,15 +8,15 @@ import {
 
 import { styles } from "./style";
 import SignUpHeader from "../../../components/SignupHeader/SignUpHeader";
-import SignUpPJForm from "../../../components/SignUpPJForm";
+import SignUpAddressForm from "../../../components/SignUpAddressForm";
 
 export default function SignUpPF() {
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView behavior="height">
-					<SignUpHeader accType={"PJ"} />
-					<SignUpPJForm />
+					<SignUpHeader />
+					<SignUpAddressForm />
 				</KeyboardAvoidingView>
 			</TouchableWithoutFeedback>
 		</View>

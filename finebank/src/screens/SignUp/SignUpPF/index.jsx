@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
 	View,
 	TouchableWithoutFeedback,
@@ -15,7 +15,7 @@ export default function SignUpPF() {
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView behavior="height">
-					<SignUpHeader />
+					<SignUpHeader accType={"PF"} />
 					<SignUpPFForm />
 				</KeyboardAvoidingView>
 			</TouchableWithoutFeedback>
