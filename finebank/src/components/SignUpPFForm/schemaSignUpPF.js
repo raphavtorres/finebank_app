@@ -59,14 +59,4 @@ export const schema = yup.object({
 	email: yup.string().email("Digite um e-mail válido"),
 
 	birthdate: yup.string().required("A data de nascimento é obrigatória"),
-
-	password: yup
-		.string()
-		.min(6, "Senha deve ter no mínimo 6 caracteres")
-		.max(20, "Senha deve ter no máximo 20 caracteres")
-		.required("A senha é um campo obrigatório"),
-	passwordConfirmation: yup
-		.string()
-		.required("A confirmação da senha é um campo obrigatório")
-		.oneOf([yup.ref("password")], "Os campos de senha devem ser iguais"),
 });

@@ -185,7 +185,7 @@ export default function SignUpPFForm() {
 								// value={value.getRawValue()}
 								placeholder="Telefone"
 								placeholderTextColor={COLORS.primaryGray}
-								maxLength={40}
+								maxLength={15}
 							/>
 						)}
 					/>

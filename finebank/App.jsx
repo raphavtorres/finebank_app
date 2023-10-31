@@ -30,8 +30,8 @@ export default function App() {
 				{/* <Stack.Screen name="Transaction" component={Transaction} /> */}
 				{/* <Stack.Screen name="SignUpHome" component={SignUpHome} /> */}
 				{/* <Stack.Screen name="SignUpPF" component={SignUpPF} /> */}
-				<Stack.Screen name="SignUpPJ" component={SignUpPJ} />
-				{/* <Stack.Screen name="SignUpAddress" component={SignUpAddress} /> */}
+				{/* <Stack.Screen name="SignUpPJ" component={SignUpPJ} /> */}
+				<Stack.Screen name="SignUpAddress" component={SignUpAddress} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

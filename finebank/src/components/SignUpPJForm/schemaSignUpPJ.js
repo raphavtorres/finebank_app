@@ -27,7 +27,7 @@ export const schema = yup.object({
 		})
 		.test("valid-im", "Digite um IM válido", (value) => {
 			if (!value) return true;
-			const isIMValid = value.length >= 5 && value.length <= 20;
+			const isIMValid = value.length >= 5 && value.length <= 10;
 			return isIMValid;
 		})
 		.required("IM é um campo obrigatório"),
@@ -42,7 +42,7 @@ export const schema = yup.object({
 		})
 		.test("valid-ie", "Digite um IE válido", (value) => {
 			if (!value) return true;
-			const isIEValid = value.length >= 5 && value.length <= 20;
+			const isIEValid = value.length >= 5 && value.length <= 10;
 			return isIEValid;
 		})
 		.required("IE é um campo obrigatório"),

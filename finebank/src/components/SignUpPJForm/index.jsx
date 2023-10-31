@@ -123,6 +123,7 @@ export default function SignUpPFForm() {
 						name="ie"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
+								type={"only-numbers"}
 								style={getInput(errors.ie)}
 								onChangeText={(value) => {
 									onChange(value);
@@ -132,7 +133,7 @@ export default function SignUpPFForm() {
 								value={value}
 								placeholder="Inscrição Estadual"
 								placeholderTextColor={COLORS.primaryGray}
-								maxLength={40}
+								maxLength={10}
 							/>
 						)}
 					/>
@@ -199,6 +200,12 @@ export default function SignUpPFForm() {
 						name="telephone"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
+								type={"cel-phone"}
+								options={{
+									maskType: "BRL",
+									withDDD: true,
+									dddMask: "(99) ",
+								}}
 								style={getInput(errors.telephone)}
 								onChangeText={(value) => {
 									onChange(value);
@@ -208,7 +215,7 @@ export default function SignUpPFForm() {
 								value={value}
 								placeholder="Telefone"
 								placeholderTextColor={COLORS.primaryGray}
-								maxLength={40}
+								maxLength={14}
 							/>
 						)}
 					/>
