@@ -23,7 +23,7 @@ export default function App() {
 				}}
 			>
 				{/* <Stack.Screen name="Welcome" component={Welcome} /> */}
-				{/* <Stack.Screen name="Login" component={Login} /> */}
+				<Stack.Screen name="Login" component={Login} />
 				{/* <Stack.Screen name="Home" component={Home} /> */}
 				{/* <Stack.Screen name="Investment" component={Investment} /> */}
 				{/* <Stack.Screen name="Loan" component={Loan} /> */}
@@ -31,7 +31,7 @@ export default function App() {
 				{/* <Stack.Screen name="SignUpHome" component={SignUpHome} /> */}
 				{/* <Stack.Screen name="SignUpPF" component={SignUpPF} /> */}
 				{/* <Stack.Screen name="SignUpPJ" component={SignUpPJ} /> */}
-				<Stack.Screen name="SignUpAddress" component={SignUpAddress} />
+				{/* <Stack.Screen name="SignUpAddress" component={SignUpAddress} /> */}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
