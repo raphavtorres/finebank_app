@@ -1,13 +1,15 @@
-import { Text, View, TextInput, ScrollView, Pressable } from "react-native";
-import React, { useMemo, useRef, useCallback, useState } from "react";
+import { Text, View, TextInput, ScrollView } from "react-native";
+import React, { useMemo, useRef, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import BottomSheet from "@gorhom/bottom-sheet";
 
 import { styles } from "./style";
 import { COLORS } from "../../style/constants";
+
 import ButtonWide from "../ButtonWide";
+import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
+
 import { schema } from "./schemaLogin";
 
 export default function LoginForm() {
@@ -16,7 +18,6 @@ export default function LoginForm() {
 	const snapPoints = useMemo(() => ["70%"], []);
 	// const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
 	const bottomSheetRef = useRef(null);
-
 	// const handleClosePress = bottomSheetRef.current?.close();
 
 	const {
@@ -99,26 +100,10 @@ export default function LoginForm() {
 			</ScrollView>
 			<ButtonWide btnMsg="Login" action={handleSubmit(handleLogin)} />
 			{isBottomSheetVisible && (
-				// https://stackoverflow.com/questions/63701648/react-native-react-native-reanimated-bottom-sheet-how-can-i-change-the-backg
-				<BottomSheet
-					// enableOverDrag
-					// enablePanDownToClose
-					ref={bottomSheetRef}
-					// index={2}
+				<LoginFormBackdrop
 					snapPoints={snapPoints}
-					style={{
-						foregroundColor: "#3B4045",
-					}}
-				>
-					<View
-						style={{
-							flex: 1,
-							borderRadius: 40,
-						}}
-					>
-						<Text>BOTTOM SHEET CONTENT</Text>
-					</View>
-				</BottomSheet>
+					bottomSheetRef={bottomSheetRef}
+				/>
 			)}
 		</>
 	);

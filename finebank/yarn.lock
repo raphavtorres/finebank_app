@@ -7211,6 +7211,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-bottomsheet-reanimated@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-bottomsheet-reanimated/-/react-native-bottomsheet-reanimated-0.3.1.tgz#90820966e24afda7761f2565f55c91caa9d879e1"
+  integrity sha512-9js9MHZDKSqFTYv+PC2nHlPAXJ2JV85FjTDKxrxReq4MHbKYEsXo1S9wbdc60rn0MSU+Hoz3teikpzlYZKDu1w==
+
 react-native-css-transformer@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/react-native-css-transformer/-/react-native-css-transformer-1.2.4.tgz#1a08e9fdce0d37f0babaf39751ca14c82bcd5d03"
