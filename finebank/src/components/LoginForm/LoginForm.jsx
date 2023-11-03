@@ -13,7 +13,7 @@ import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
 import { schema } from "./schemaLogin";
 
 export default function LoginForm() {
-	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(true);
+	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
 	const snapPoints = useMemo(() => ["70%"], []);
 	// const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
