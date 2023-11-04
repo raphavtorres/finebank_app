@@ -191,13 +191,13 @@ export default function SignUpAddressForm({ navigation }) {
 					{/* CONFIRM PASSWORD */}
 					<Controller
 						control={control}
-						name="confirmPassword"
+						name="passwordConfirmation"
 						render={({ field: { onChange, onBlur, value } }) => (
 							<TextInput
-								style={getInput(errors.confirmPassword)}
+								style={getInput(errors.passwordConfirmation)}
 								onChangeText={(value) => {
 									onChange(value);
-									trigger("confirmPassword");
+									trigger("passwordConfirmation");
 								}}
 								onBlur={onBlur}
 								value={value}
@@ -208,9 +208,9 @@ export default function SignUpAddressForm({ navigation }) {
 							/>
 						)}
 					/>
-					{errors?.confirmPassword && (
+					{errors?.passwordConfirmation && (
 						<Text style={styles.labelError}>
-							{errors.confirmPassword?.message}
+							{errors.passwordConfirmation?.message}
 						</Text>
 					)}
 				</View>
