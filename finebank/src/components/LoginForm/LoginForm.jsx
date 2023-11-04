@@ -12,8 +12,11 @@ import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
 
 import { schema } from "./schemaLogin";
 
+import { useAuth } from "../../context/AuthContext";
+
 export default function LoginForm({ navigation }) {
 	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+	const { onLogin } = useAuth();
 
 	const snapPoints = useMemo(() => ["70%"], []);
 	const bottomSheetRef = useRef(null);
@@ -27,11 +30,21 @@ export default function LoginForm({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function handleLogin(data) {
+	async function handleLogin(data) {
+		const register_number = data.cpfOrCnpj;
+		const password = data.password;
+
+		console.log(data);
+
+		const response = await onLogin(register_number, password);
+
+		if (response && response.error) {
+			alert(response.msg);
+		} else {
+			setIsBottomSheetVisible(true);
+		}
 		// Test login info
 		// Get accounts info and show in BottomSheet
-		setIsBottomSheetVisible(true);
-		console.log(data);
 	}
 
 	function getInput(error) {
@@ -42,7 +55,8 @@ export default function LoginForm({ navigation }) {
 	}
 
 	function handleEnterAccount() {
-		navigation.navigate("Home");
+		// navigation.navigate("Home");
+		console.log("Getting right account from API");
 	}
 
 	return (
