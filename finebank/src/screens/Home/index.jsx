@@ -13,7 +13,7 @@ import UserProfileHeader from "../../components/UserProfileHeader";
 import Card from "../../components/Card";
 import HomeStatementBackdrop from "../../components/Backdrop/HomeStatementBackdrop";
 
-export default function Home() {
+export default function Home({ navigation }) {
 	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
 	const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
@@ -23,6 +23,11 @@ export default function Home() {
 	function handleStatementOpen() {
 		setIsBottomSheetVisible(true);
 		bottomSheetRef.current?.snapToIndex(1);
+	}
+
+	function requestCard() {
+		// code to request card
+		console.log("request card");
 	}
 
 	const cardData = [
@@ -100,10 +105,26 @@ export default function Home() {
 								horizontal={true}
 								showsHorizontalScrollIndicator={false}
 							>
-								<OptCard name="Empréstimo" url="loan" />
-								<OptCard name="Transação" url="transaction" />
-								<OptCard name="Investimento" url="investment" />
-								<OptCard name="Solicitar Cartão" url="card" />
+								<OptCard
+									name="Empréstimo"
+									url="loan"
+									action={() => navigation.navigate("Loan")}
+								/>
+								<OptCard
+									name="Transação"
+									url="transaction"
+									action={() => navigation.navigate("Transaction")}
+								/>
+								<OptCard
+									name="Investimento"
+									url="investment"
+									action={() => navigation.navigate("Investment")}
+								/>
+								<OptCard
+									name="Solicitar Cartão"
+									url="card"
+									action={requestCard}
+								/>
 							</ScrollView>
 						</View>
 						{/* CREDIT LIMIT */}

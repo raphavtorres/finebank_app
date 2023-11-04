@@ -14,7 +14,7 @@ import { styles } from "./style";
 import LoginHeader from "../../components/LoginHeader/LoginHeader";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
-export default function Login() {
+export default function Login({ navigation }) {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<BottomSheetModalProvider>
@@ -27,7 +27,7 @@ export default function Login() {
 									source={require("../../assets/header-component-img.png")}
 								/>
 								<LoginHeader />
-								<LoginForm />
+								<LoginForm navigation={navigation} />
 							</View>
 						</KeyboardAvoidingView>
 					</TouchableWithoutFeedback>

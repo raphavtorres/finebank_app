@@ -1,4 +1,4 @@
-import { Text, View, TextInput, ScrollView } from "react-native";
+import { Text, View, TextInput, ScrollView, Pressable } from "react-native";
 import React, { useMemo, useRef, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
@@ -12,13 +12,11 @@ import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
 
 import { schema } from "./schemaLogin";
 
-export default function LoginForm() {
+export default function LoginForm({ navigation }) {
 	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
 	const snapPoints = useMemo(() => ["70%"], []);
-	// const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
 	const bottomSheetRef = useRef(null);
-	// const handleClosePress = bottomSheetRef.current?.close();
 
 	const {
 		control,
@@ -30,6 +28,8 @@ export default function LoginForm() {
 	});
 
 	function handleLogin(data) {
+		// Test login info
+		// Get accounts info and show in BottomSheet
 		setIsBottomSheetVisible(true);
 		console.log(data);
 	}
@@ -39,6 +39,10 @@ export default function LoginForm() {
 			return [styles.input, styles.inputError];
 		}
 		return styles.input;
+	}
+
+	function handleEnterAccount() {
+		navigation.navigate("Home");
 	}
 
 	return (
@@ -65,6 +69,7 @@ export default function LoginForm() {
 								placeholder="CPF / CNPJ"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={14}
+								keyboardType="numeric"
 							/>
 						)}
 					/>
@@ -93,7 +98,9 @@ export default function LoginForm() {
 					)}
 
 					<View style={styles.linksLoginView}>
-						<Text style={styles.linksLogin}>Cadastrar-se</Text>
+						<Pressable onPress={() => navigation.navigate("SignUpHome")}>
+							<Text style={styles.linksLogin}>Cadastrar-se</Text>
+						</Pressable>
 						<Text style={styles.linksLogin}>Esqueci minha senha</Text>
 					</View>
 				</View>
@@ -103,6 +110,7 @@ export default function LoginForm() {
 				<LoginFormBackdrop
 					snapPoints={snapPoints}
 					bottomSheetRef={bottomSheetRef}
+					action={handleEnterAccount}
 				/>
 			)}
 		</>

@@ -14,7 +14,7 @@ import SelectBtn from "../SelectBtn";
 
 import { schema } from "./schemaSignUpPJ";
 
-export default function SignUpPFForm() {
+export default function SignUpPFForm({ navigation }) {
 	const [PJselected, setPJselected] = useState(false);
 	const [PFselected, setPFselected] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
@@ -50,6 +50,7 @@ export default function SignUpPFForm() {
 
 	function handleSignUp(data) {
 		console.log(data);
+		navigation.navigate("SignUpAddress");
 	}
 
 	function getInput(error) {
@@ -122,7 +123,7 @@ export default function SignUpPFForm() {
 						control={control}
 						name="ie"
 						render={({ field: { onChange, onBlur, value } }) => (
-							<TextInput
+							<TextInputMask
 								type={"only-numbers"}
 								style={getInput(errors.ie)}
 								onChangeText={(value) => {
@@ -169,13 +170,7 @@ export default function SignUpPFForm() {
 						control={control}
 						name="fantasyName"
 						render={({ field: { onChange, onBlur, value } }) => (
-							<TextInputMask
-								type={"cel-phone"}
-								options={{
-									maskType: "BRL",
-									withDDD: true,
-									dddMask: "(99) ",
-								}}
+							<TextInput
 								style={getInput(errors.fantasyName)}
 								onChangeText={(value) => {
 									onChange(value);
@@ -183,7 +178,6 @@ export default function SignUpPFForm() {
 								}}
 								onBlur={onBlur}
 								value={value}
-								// value={value.getRawValue()}
 								placeholder="Nome Fantasia"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
@@ -199,7 +193,7 @@ export default function SignUpPFForm() {
 						control={control}
 						name="telephone"
 						render={({ field: { onChange, onBlur, value } }) => (
-							<TextInput
+							<TextInputMask
 								type={"cel-phone"}
 								options={{
 									maskType: "BRL",
@@ -320,8 +314,7 @@ export default function SignUpPFForm() {
 						marginRight: 10,
 					}}
 				>
-					<ButtonWide btnMsg="Etapa 2/3" />
-					{/* <ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleLogin)} /> */}
+					<ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleSignUp)} />
 				</View>
 			</ScrollView>
 		</>

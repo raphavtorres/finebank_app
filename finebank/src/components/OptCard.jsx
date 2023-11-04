@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { Pressable, Text, Image, StyleSheet } from "react-native";
 import { COLORS } from "../style/constants";
 
 export default function OptCard(props) {
@@ -19,10 +19,10 @@ export default function OptCard(props) {
 	}
 
 	return (
-		<View style={styles.optCard}>
+		<Pressable style={styles.optCard} onPress={props.action}>
 			<Image style={styles.flag} source={url} />
 			<Text style={styles.text}>{props.name}</Text>
-		</View>
+		</Pressable>
 	);
 }
 

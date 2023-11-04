@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 
 import { styles } from "./style";
 
@@ -20,7 +20,7 @@ export function Separator() {
 export function AccountLink(props) {
 	return (
 		<>
-			<View style={styles.accContainer}>
+			<Pressable style={styles.accContainer} onPress={props.action}>
 				<View style={styles.infoContainer}>
 					<Text style={styles.lightTxt}>Agência</Text>
 					<Text style={styles.strongTxt}>{props.agency}</Text>
@@ -29,7 +29,7 @@ export function AccountLink(props) {
 					<Text style={styles.lightTxt}>Conta</Text>
 					<Text style={styles.strongTxt}>{props.account}</Text>
 				</View>
-			</View>
+			</Pressable>
 			<Separator />
 		</>
 	);
@@ -46,8 +46,8 @@ export default function LoginFormBackdrop(props) {
 		>
 			<View style={styles.container}>
 				<Text style={styles.title}>Qual conta você deseja acessar ?</Text>
-				<AccountLink agency={"**82"} account={"**206"} />
-				<AccountLink agency={"**24"} account={"**912"} />
+				<AccountLink agency={"**82"} account={"**206"} action={props.action} />
+				<AccountLink agency={"**24"} account={"**912"} action={props.action} />
 			</View>
 		</BottomSheet>
 	);

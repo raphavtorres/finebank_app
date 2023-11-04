@@ -14,7 +14,7 @@ import SelectBtn from "../SelectBtn";
 
 import { schema } from "./schemaSignUpPF";
 
-export default function SignUpPFForm() {
+export default function SignUpPFForm({ navigation }) {
 	const [PJselected, setPJselected] = useState(false);
 	const [PFselected, setPFselected] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
@@ -50,6 +50,7 @@ export default function SignUpPFForm() {
 
 	function handleSignUp(data) {
 		console.log(data);
+		navigation.navigate("SignUpAddress");
 	}
 
 	function getInput(error) {
@@ -288,8 +289,7 @@ export default function SignUpPFForm() {
 						marginRight: 10,
 					}}
 				>
-					<ButtonWide btnMsg="Etapa 2/3" />
-					{/* <ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleLogin)} /> */}
+					<ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleSignUp)} />
 				</View>
 			</ScrollView>
 		</>

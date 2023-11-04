@@ -13,7 +13,7 @@ import SelectBtn from "../../components/SelectBtn";
 import { COLORS } from "../../style/constants";
 import { schema } from "./schemaTransaction";
 
-export default function Transaction() {
+export default function Transaction({ navigation }) {
 	const [creditSelected, setCreditSelected] = useState(false);
 	const [debitSelected, setDebitSelected] = useState(false);
 	const [payMethodError, setPayMethodError] = useState(false);
@@ -55,6 +55,7 @@ export default function Transaction() {
 			setPayMethodError(true);
 		} else {
 			console.log(data, optionSelected);
+			navigation.navigate("Home");
 		}
 	}
 

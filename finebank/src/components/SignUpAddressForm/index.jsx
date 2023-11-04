@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { Text, View, TextInput, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
@@ -13,7 +13,7 @@ import ButtonWide from "../ButtonWide";
 
 import { schema } from "./schemaSignUpAddress";
 
-export default function SignUpAddressForm() {
+export default function SignUpAddressForm({ navigation }) {
 	const {
 		control,
 		handleSubmit,
@@ -25,6 +25,7 @@ export default function SignUpAddressForm() {
 
 	function handleSignUp(data) {
 		console.log(data);
+		navigation.navigate("Home");
 	}
 
 	function getInput(error) {
@@ -219,8 +220,7 @@ export default function SignUpAddressForm() {
 						marginRight: 10,
 					}}
 				>
-					<ButtonWide btnMsg="Etapa 2/3" />
-					{/* <ButtonWide btnMsg="Etapa 2/3" action={handleSubmit(handleLogin)} /> */}
+					<ButtonWide btnMsg="Cadastrar" action={handleSubmit(handleSignUp)} />
 				</View>
 			</ScrollView>
 		</>
