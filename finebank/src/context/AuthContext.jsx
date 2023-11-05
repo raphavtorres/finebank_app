@@ -1,14 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-
-const JWT_KEY = "my-jwt";
-export const API_URL = "http://192.168.1.9:8000/api/v1/";
-
-export const axiosInstance = axios.create({
-	baseURL: API_URL,
-});
+import { axiosInstance } from "../services/api";
+import {
+	storeSetJWT,
+	storeGetJWT,
+	storeDeleteJWT,
+} from "../constant/apiConstant";
 
 const AuthContext = createContext({});
 
@@ -24,18 +21,28 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		async function loadJWT() {
-			const jwt = await SecureStore.getItemAsync(JWT_KEY);
-			console.log("stored: ", jwt);
+			// getting jwt from secure store
+			const jwt = await storeGetJWT();
+			// console.log("stored: ", jwt);
 
+			// validating jwt
 			if (jwt) {
-				axiosInstance.defaults.headers.common[
-					"Authorization"
-				] = `Bearer ${jwt}`;
-
-				setAuthState({
-					jwt: jwt,
-					authenticated: true,
+				const isJWTValid = await axiosInstance.post("auth/jwt/verify/", {
+					token: jwt,
 				});
+
+				if (isJWTValid) {
+					axiosInstance.defaults.headers.common[
+						"Authorization"
+					] = `Bearer ${jwt}`;
+
+					setAuthState({
+						jwt: jwt,
+						authenticated: true,
+					});
+				} else {
+					logout();
+				}
 			}
 		}
 		loadJWT();
@@ -61,31 +68,26 @@ export const AuthProvider = ({ children }) => {
 				password: password,
 			});
 
-			setAuthState({
-				jwt: response.data.access,
-				authenticated: true,
-			});
+			// setAuthState({
+			// 	jwt: response.data.access,
+			// 	authenticated: true,
+			// });
 
 			axiosInstance.defaults.headers.common[
 				"Authorization"
 			] = `Bearer ${response.data.access}`;
 
-			await SecureStore.setItemAsync(JWT_KEY, response.data.access);
+			await storeSetJWT(response.data.access);
 
 			return response.data;
 		} catch (err) {
-			// handleErrors(err, {
-			// 	badRequest: "Faltando CPF/CNPJ ou senha",
-			// 	unauthorized: "Login inválido",
-			// 	rest: "Login falhou",
-			// });
 			return { error: true, msg: err.response.data.msg };
 		}
 	}
 
 	async function logout() {
 		// Delete JWT from storage
-		await SecureStore.deleteItemAsync(JWT_KEY);
+		await storeDeleteJWT();
 
 		// Update HTTP Headers
 		axiosInstance.defaults.headers.common["Authorization"] = "";
@@ -102,6 +104,7 @@ export const AuthProvider = ({ children }) => {
 		onLogin: login,
 		onLogout: logout,
 		authState,
+		setAuthState,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

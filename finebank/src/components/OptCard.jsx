@@ -1,5 +1,5 @@
 import { Pressable, Text, Image, StyleSheet } from "react-native";
-import { COLORS } from "../style/constants";
+import { COLORS } from "../constant/styleConstant";
 
 export default function OptCard(props) {
 	var url = "";

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { COLORS } from "../style/constants";
+import { COLORS } from "../constant/styleConstant";
 import { useState } from "react";
 
 export default function SelectBtn(props) {

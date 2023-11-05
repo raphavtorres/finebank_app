@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
-import { COLORS } from "../style/constants";
+import { COLORS } from "../constant/styleConstant";
 
 export default function InvestmentCard(props) {
 	return (

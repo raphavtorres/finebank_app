@@ -10,7 +10,7 @@ import UserProfileHeader from "../../components/UserProfileHeader";
 import ButtonWide from "../../components/ButtonWide";
 import SelectBtn from "../../components/SelectBtn";
 
-import { COLORS } from "../../style/constants";
+import { COLORS } from "../../constant/styleConstant";
 import { schema } from "./schemaTransaction";
 
 export default function Transaction({ navigation }) {

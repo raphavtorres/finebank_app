@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Image, Pressable } from "react-native";
 import { ProgressBar } from "react-native-paper";
 
 import { styles } from "./style";
-import { COLORS } from "../../style/constants";
+import { COLORS } from "../../constant/styleConstant";
 
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

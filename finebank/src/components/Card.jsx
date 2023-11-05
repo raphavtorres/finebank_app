@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 
 import { StyleSheet } from "react-native";
-import { COLORS } from "../style/constants";
+import { COLORS } from "../constant/styleConstant";
 
 export default function Card(props) {
 	const card = props.item;

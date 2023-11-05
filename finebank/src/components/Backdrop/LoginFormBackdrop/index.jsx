@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import { Text, View, Pressable } from "react-native";
 
 import { styles } from "./style";
 
 import BottomSheet from "@gorhom/bottom-sheet";
-import { COLORS } from "../../../style/constants";
+import { COLORS } from "../../../constant/styleConstant";
+
+import { getAccounts } from "../../../services/api";
 
 export function Separator() {
 	return (
@@ -36,18 +39,27 @@ export function AccountLink(props) {
 }
 
 export default function LoginFormBackdrop(props) {
+	const [accountsData, setAccountsData] = useState([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setAccountsData(await getAccounts(), "AAAAAAAAAA");
+		};
+		fetchData();
+	}, []);
+
 	return (
-		<BottomSheet
-			// enableOverDrag
-			// enablePanDownToClose
-			ref={props.bottomSheetRef}
-			// index={2}
-			snapPoints={props.snapPoints}
-		>
+		<BottomSheet ref={props.bottomSheetRef} snapPoints={props.snapPoints}>
 			<View style={styles.container}>
 				<Text style={styles.title}>Qual conta você deseja acessar ?</Text>
-				<AccountLink agency={"**82"} account={"**206"} action={props.action} />
-				<AccountLink agency={"**24"} account={"**912"} action={props.action} />
+				{accountsData.map((item) => (
+					<AccountLink
+						key={item.number}
+						agency={item.agency}
+						account={item.number}
+						action={props.action}
+					/>
+				))}
 			</View>
 		</BottomSheet>
 	);

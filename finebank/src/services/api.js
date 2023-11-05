@@ -1,8 +1,19 @@
 import axios from "axios";
+import { API_URL } from "../constant/apiConstant";
 
 export const axiosInstance = axios.create({
-	baseURL: "http://192.168.1.9:8000/api/v1/",
+	baseURL: API_URL,
 });
+
+export async function getAccounts() {
+	try {
+		const response = await axiosInstance.get("accounts/");
+
+		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+}
 
 // ERRORS WARNING
 function handleErrors(error, errorMsg = "") {
@@ -19,37 +30,17 @@ function handleErrors(error, errorMsg = "") {
 	}
 }
 
-// Login - creating JWT
-export default async function login(register_number, pass) {
-	try {
-		const response = await axiosInstance.post("auth/jwt/create/", {
-			register_number: parseInt(register_number),
-			password: pass,
-		});
+// // Verifying JWT
+// export async function verifyJWT(token) {
+// 	try {
+// 		const response = await axiosInstance.post("auth/jwt/verify/", {
+// 			token: token,
+// 		});
 
-		showSuccessMsg("Login com sucesso");
-
-		return response.data;
-	} catch (err) {
-		handleErrors(err, {
-			badRequest: "Faltando CPF/CNPJ ou senha",
-			unauthorized: "Login inválido",
-			rest: "Login falhou",
-		});
-	}
-}
-
-// Verifying JWT
-export async function verifyJWT(token) {
-	try {
-		const response = await axiosInstance.post("auth/jwt/verify/", {
-			token: token,
-		});
-
-		if (response.status == 200) {
-			return true;
-		}
-	} catch (err) {
-		return false;
-	}
-}
+// 		if (response.status == 200) {
+// 			return true;
+// 		}
+// 	} catch (err) {
+// 		return false;
+// 	}
+// }

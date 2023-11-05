@@ -3,7 +3,7 @@ import { Text, View, ScrollView } from "react-native";
 import { styles } from "./style";
 
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { COLORS } from "../../../style/constants";
+import { COLORS } from "../../../constant/styleConstant";
 
 export function Separator() {
 	return (

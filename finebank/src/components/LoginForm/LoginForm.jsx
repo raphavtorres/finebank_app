@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { styles } from "./style";
-import { COLORS } from "../../style/constants";
+import { COLORS } from "../../constant/styleConstant";
 
 import ButtonWide from "../ButtonWide";
 import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
@@ -13,10 +13,14 @@ import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
 import { schema } from "./schemaLogin";
 
 import { useAuth } from "../../context/AuthContext";
+import { storeGetJWT } from "../../constant/apiConstant";
+
+// import { getAccounts } from "../../services/api";
 
 export default function LoginForm({ navigation }) {
+	// const [accountsData, setAccountsData] = useState([]);
 	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-	const { onLogin } = useAuth();
+	const { setAuthState, onLogin } = useAuth();
 
 	const snapPoints = useMemo(() => ["70%"], []);
 	const bottomSheetRef = useRef(null);
@@ -31,12 +35,8 @@ export default function LoginForm({ navigation }) {
 	});
 
 	async function handleLogin(data) {
-		const register_number = data.cpfOrCnpj;
-		const password = data.password;
-
-		console.log(data);
-
-		const response = await onLogin(register_number, password);
+		const { cpfOrCnpj, password } = data;
+		const response = await onLogin(cpfOrCnpj, password);
 
 		if (response && response.error) {
 			alert(response.msg);
@@ -47,16 +47,20 @@ export default function LoginForm({ navigation }) {
 		// Get accounts info and show in BottomSheet
 	}
 
+	async function handleEnterAccount() {
+		setAuthState({
+			jwt: await storeGetJWT(),
+			authenticated: true,
+		});
+
+		console.log("Need to get the right account from API");
+	}
+
 	function getInput(error) {
 		if (error) {
 			return [styles.input, styles.inputError];
 		}
 		return styles.input;
-	}
-
-	function handleEnterAccount() {
-		// navigation.navigate("Home");
-		console.log("Getting right account from API");
 	}
 
 	return (
@@ -125,6 +129,7 @@ export default function LoginForm({ navigation }) {
 					snapPoints={snapPoints}
 					bottomSheetRef={bottomSheetRef}
 					action={handleEnterAccount}
+					// data={accountsData}
 				/>
 			)}
 		</>

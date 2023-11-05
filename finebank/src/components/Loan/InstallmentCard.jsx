@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../style/constants";
+import { COLORS } from "../../constant/styleConstant";
 
 export default function InstallmentCard(props) {
 	return (

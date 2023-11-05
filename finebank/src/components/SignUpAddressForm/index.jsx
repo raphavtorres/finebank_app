@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TextInputMask } from "react-native-masked-text";
 
 import { styles } from "./style";
-import { COLORS } from "../../style/constants";
+import { COLORS } from "../../constant/styleConstant";
 
 import ButtonWide from "../ButtonWide";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, Image, Pressable, View } from "react-native";
 
-import { COLORS } from "../style/constants";
+import { COLORS } from "../constant/styleConstant";
 
 export default function ButtonWide(props) {
 	return (
