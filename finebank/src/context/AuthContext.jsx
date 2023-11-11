@@ -2,9 +2,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { axiosInstance } from "../services/api";
 import {
-	storeSetJWT,
-	storeGetJWT,
-	storeDeleteJWT,
+	API_URL,
+	storeSet,
+	storeGet,
+	storeDelete,
+	JWT_KEY,
+	USER_JSON,
+	USER_TYPE,
+	ACCOUNT_JSON,
 } from "../constant/apiConstant";
 
 const AuthContext = createContext({});
@@ -22,8 +27,7 @@ export const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		async function loadJWT() {
 			// getting jwt from secure store
-			const jwt = await storeGetJWT();
-			// console.log("stored: ", jwt);
+			const jwt = await storeGet(JWT_KEY);
 
 			// validating jwt
 			if (jwt) {
@@ -77,8 +81,7 @@ export const AuthProvider = ({ children }) => {
 				"Authorization"
 			] = `Bearer ${response.data.access}`;
 
-			await storeSetJWT(response.data.access);
-
+			await storeSet(JWT_KEY, response.data.access);
 			return response.data;
 		} catch (err) {
 			return { error: true, msg: err.response.data.msg };
@@ -86,8 +89,11 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	async function logout() {
-		// Delete JWT from storage
-		await storeDeleteJWT();
+		// Delete all from storage
+		await storeDelete(JWT_KEY);
+		await storeDelete(USER_JSON);
+		await storeDelete(USER_TYPE);
+		await storeDelete(ACCOUNT_JSON);
 
 		// Update HTTP Headers
 		axiosInstance.defaults.headers.common["Authorization"] = "";

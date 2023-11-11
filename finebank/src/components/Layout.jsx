@@ -31,15 +31,7 @@ export default function Layout() {
 			>
 				{authState?.authenticated ? (
 					<>
-						<Stack.Screen
-							name="Home"
-							component={Home}
-							// options={{
-							// 	headerRight: () => (
-							// 		<Button onPress={onLogout} title="Sign Out" />
-							// 	),
-							// }}
-						/>
+						<Stack.Screen name="Home" component={Home} />
 						<Stack.Screen name="Investment" component={Investment} />
 						<Stack.Screen name="Loan" component={Loan} />
 						<Stack.Screen name="Transaction" component={Transaction} />

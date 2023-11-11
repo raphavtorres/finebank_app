@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
 		{
 			transaction_action: "Received",
 			source: "11111",
-			amount: 70.83,
+			amount: 23.83,
 		},
 	];
 

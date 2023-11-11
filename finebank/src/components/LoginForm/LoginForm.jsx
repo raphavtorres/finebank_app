@@ -11,16 +11,13 @@ import ButtonWide from "../ButtonWide";
 import LoginFormBackdrop from "../Backdrop/LoginFormBackdrop";
 
 import { schema } from "./schemaLogin";
-
 import { useAuth } from "../../context/AuthContext";
-import { storeGetJWT } from "../../constant/apiConstant";
-
-// import { getAccounts } from "../../services/api";
+import { getUser } from "../../services/api";
+import { USER_JSON, USER_TYPE, storeSet } from "../../constant/apiConstant";
 
 export default function LoginForm({ navigation }) {
-	// const [accountsData, setAccountsData] = useState([]);
 	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-	const { setAuthState, onLogin } = useAuth();
+	const { onLogin } = useAuth();
 
 	const snapPoints = useMemo(() => ["70%"], []);
 	const bottomSheetRef = useRef(null);
@@ -42,18 +39,11 @@ export default function LoginForm({ navigation }) {
 			alert(response.msg);
 		} else {
 			setIsBottomSheetVisible(true);
+			const userType = `${cpfOrCnpj}`.length == 11 ? "natural" : "legal";
+			const userJsonAsStr = JSON.stringify(await getUser(userType));
+			await storeSet(USER_JSON, userJsonAsStr);
+			await storeSet(USER_TYPE, userType);
 		}
-		// Test login info
-		// Get accounts info and show in BottomSheet
-	}
-
-	async function handleEnterAccount() {
-		setAuthState({
-			jwt: await storeGetJWT(),
-			authenticated: true,
-		});
-
-		console.log("Need to get the right account from API");
 	}
 
 	function getInput(error) {
@@ -128,8 +118,7 @@ export default function LoginForm({ navigation }) {
 				<LoginFormBackdrop
 					snapPoints={snapPoints}
 					bottomSheetRef={bottomSheetRef}
-					action={handleEnterAccount}
-					// data={accountsData}
+					// action={handleEnterAccount}
 				/>
 			)}
 		</>

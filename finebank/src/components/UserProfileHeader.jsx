@@ -3,9 +3,19 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../constant/styleConstant";
 
 import { useAuth } from "../context/AuthContext";
+import { getUsername } from "../services/functions";
+import { useEffect, useState } from "react";
 
 export default function UserProfileHeader(props) {
+	const [username, setUsername] = useState("");
 	const { onLogout } = useAuth();
+
+	useEffect(() => {
+		async function fetchData() {
+			setUsername(await getUsername());
+		}
+		fetchData();
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -15,7 +25,7 @@ export default function UserProfileHeader(props) {
 					source={require("../assets/profile-img.png")}
 					style={styles.profilePic}
 				/>
-				<Text style={styles.userName}>Olá, {props.username}</Text>
+				<Text style={styles.userName}>Olá, {username}</Text>
 			</View>
 
 			<Pressable onPress={onLogout} style={styles.signOutBtn}>

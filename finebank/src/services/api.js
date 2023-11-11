@@ -30,6 +30,17 @@ function handleErrors(error, errorMsg = "") {
 	}
 }
 
+// Geting user
+export async function getUser(user_type) {
+	try {
+		const response = await axiosInstance.get(`${user_type}-people/`);
+		// const response = await axiosInstance.get(`natural-people/`);
+		return response.data[0];
+	} catch (err) {
+		alert(err);
+	}
+}
+
 // // Verifying JWT
 // export async function verifyJWT(token) {
 // 	try {

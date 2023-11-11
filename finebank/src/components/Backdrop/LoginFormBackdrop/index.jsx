@@ -6,7 +6,14 @@ import { styles } from "./style";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { COLORS } from "../../../constant/styleConstant";
 
+import { useAuth } from "../../../context/AuthContext";
 import { getAccounts } from "../../../services/api";
+import {
+	storeGet,
+	storeSet,
+	JWT_KEY,
+	ACCOUNT_JSON,
+} from "../../../constant/apiConstant";
 
 export function Separator() {
 	return (
@@ -39,14 +46,26 @@ export function AccountLink(props) {
 }
 
 export default function LoginFormBackdrop(props) {
+	const { setAuthState } = useAuth();
+
 	const [accountsData, setAccountsData] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setAccountsData(await getAccounts(), "AAAAAAAAAA");
+			setAccountsData(await getAccounts());
 		};
 		fetchData();
 	}, []);
+
+	async function handleEnterAccount(account_selected) {
+		setAuthState({
+			jwt: await storeGet(JWT_KEY),
+			authenticated: true,
+		});
+
+		const accountJsonAsString = JSON.stringify(account_selected);
+		await storeSet(ACCOUNT_JSON, accountJsonAsString);
+	}
 
 	return (
 		<BottomSheet ref={props.bottomSheetRef} snapPoints={props.snapPoints}>
@@ -57,7 +76,7 @@ export default function LoginFormBackdrop(props) {
 						key={item.number}
 						agency={item.agency}
 						account={item.number}
-						action={props.action}
+						action={() => handleEnterAccount(item)}
 					/>
 				))}
 			</View>
