@@ -21,6 +21,8 @@ export default function Card(props) {
 		case "Elo":
 			url = require("../assets/elo-icon.png");
 			break;
+		default:
+			url = require("../assets/empty-img.png");
 	}
 
 	return (

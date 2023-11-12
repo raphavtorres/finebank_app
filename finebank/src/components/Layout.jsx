@@ -21,7 +21,6 @@ const Stack = createNativeStackNavigator();
 export default function Layout() {
 	const { authState, onLogout } = useAuth();
 
-	// console.log("AUTHENTICATED(layout page)?:", authState?.authenticated);
 	return (
 		<NavigationContainer>
 			<Stack.Navigator

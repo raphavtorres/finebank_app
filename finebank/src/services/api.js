@@ -5,6 +5,7 @@ export const axiosInstance = axios.create({
 	baseURL: API_URL,
 });
 
+// Geting accounts
 export async function getAccounts() {
 	try {
 		const response = await axiosInstance.get("accounts/");
@@ -12,6 +13,41 @@ export async function getAccounts() {
 		return response.data;
 	} catch (err) {
 		console.log(err);
+	}
+}
+
+// Geting user
+export async function getUser(user_type) {
+	try {
+		const response = await axiosInstance.get(`${user_type}-people/`);
+		return response.data[0];
+	} catch (err) {
+		alert("ERRO USER");
+	}
+}
+
+// Geting user
+export async function getCards(account) {
+	console.log("ACCOUNT FUNCTION", account);
+	try {
+		const response = await axiosInstance.get(`cards/?account=${account}`);
+		console.log("GET CARDS", response.data);
+		return response.data;
+	} catch (err) {
+		alert("ERRO CARDS");
+		// alert(err, "ERRO CARDS");
+	}
+}
+
+// Getting statement
+export async function getStatements(account) {
+	try {
+		const response = await axiosInstance.get(
+			`bank-statement/?account=${account}`
+		);
+		return response.data;
+	} catch (err) {
+		alert("ERRO STATEMENT");
 	}
 }
 
@@ -29,29 +65,3 @@ function handleErrors(error, errorMsg = "") {
 		textError = errorMsg.rest;
 	}
 }
-
-// Geting user
-export async function getUser(user_type) {
-	try {
-		const response = await axiosInstance.get(`${user_type}-people/`);
-		// const response = await axiosInstance.get(`natural-people/`);
-		return response.data[0];
-	} catch (err) {
-		alert(err);
-	}
-}
-
-// // Verifying JWT
-// export async function verifyJWT(token) {
-// 	try {
-// 		const response = await axiosInstance.post("auth/jwt/verify/", {
-// 			token: token,
-// 		});
-
-// 		if (response.status == 200) {
-// 			return true;
-// 		}
-// 	} catch (err) {
-// 		return false;
-// 	}
-// }

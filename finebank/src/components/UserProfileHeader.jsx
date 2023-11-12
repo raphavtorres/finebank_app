@@ -22,7 +22,7 @@ export default function UserProfileHeader(props) {
 			<View style={styles.profileView}>
 				{/* props.url to image */}
 				<Image
-					source={require("../assets/profile-img.png")}
+					source={require("../assets/empty-img.png")}
 					style={styles.profilePic}
 				/>
 				<Text style={styles.userName}>Olá, {username}</Text>

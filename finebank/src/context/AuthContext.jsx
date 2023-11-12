@@ -31,11 +31,11 @@ export const AuthProvider = ({ children }) => {
 
 			// validating jwt
 			if (jwt) {
-				const isJWTValid = await axiosInstance.post("auth/jwt/verify/", {
-					token: jwt,
-				});
+				try {
+					await axiosInstance.post("auth/jwt/verify/", {
+						token: jwt,
+					});
 
-				if (isJWTValid) {
 					axiosInstance.defaults.headers.common[
 						"Authorization"
 					] = `Bearer ${jwt}`;
@@ -44,8 +44,8 @@ export const AuthProvider = ({ children }) => {
 						jwt: jwt,
 						authenticated: true,
 					});
-				} else {
-					logout();
+				} catch (e) {
+					await logout();
 				}
 			}
 		}
