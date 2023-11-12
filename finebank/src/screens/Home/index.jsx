@@ -54,7 +54,6 @@ export default function Home({ navigation }) {
 	}, [accountObj.id]);
 
 	useEffect(() => {
-		console.log(data.cardsData.length);
 		data.cardsData.length > 0 && setCardMap(data.cardsData);
 	}, [data.cardsData]);
 
@@ -178,7 +177,7 @@ export default function Home({ navigation }) {
 						<HomeStatementBackdrop
 							snapPoints={snapPoints}
 							bottomSheetRef={bottomSheetRef}
-							statementData={statementData}
+							statementData={data.statementData}
 						/>
 					)}
 				</BottomSheetModalProvider>

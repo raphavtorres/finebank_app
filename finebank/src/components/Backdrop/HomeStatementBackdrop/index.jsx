@@ -39,7 +39,12 @@ export default function HomeStatementBackdrop(props) {
 						<>
 							<View
 								style={styles.transactionContainer}
-								key={transaction.amount}
+								key={
+									transaction.account_balance *
+									Math.floor(
+										(Math.random() * 30) / Math.floor(Math.random() * 20)
+									)
+								}
 							>
 								<View style={styles.txtView}>
 									<Text style={styles.lightTxt}>Ação:</Text>

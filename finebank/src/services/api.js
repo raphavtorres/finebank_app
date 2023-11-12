@@ -12,7 +12,7 @@ export async function getAccounts() {
 
 		return response.data;
 	} catch (err) {
-		console.log(err);
+		alert(err, "in get accounts");
 	}
 }
 
@@ -22,20 +22,17 @@ export async function getUser(user_type) {
 		const response = await axiosInstance.get(`${user_type}-people/`);
 		return response.data[0];
 	} catch (err) {
-		alert("ERRO USER");
+		alert(err, "in get user");
 	}
 }
 
 // Geting user
 export async function getCards(account) {
-	console.log("ACCOUNT FUNCTION", account);
 	try {
 		const response = await axiosInstance.get(`cards/?account=${account}`);
-		console.log("GET CARDS", response.data);
 		return response.data;
 	} catch (err) {
-		alert("ERRO CARDS");
-		// alert(err, "ERRO CARDS");
+		alert(err, "in get cards");
 	}
 }
 
@@ -47,21 +44,6 @@ export async function getStatements(account) {
 		);
 		return response.data;
 	} catch (err) {
-		alert("ERRO STATEMENT");
-	}
-}
-
-// ERRORS WARNING
-function handleErrors(error, errorMsg = "") {
-	let textError = "";
-
-	if (!error.response.status) {
-		textError = "Sem resposta do servidor";
-	} else if (error.response.status === 400) {
-		textError = errorMsg.badRequest;
-	} else if (error.response.status === 401) {
-		textError = "Não autorizado";
-	} else {
-		textError = errorMsg.rest;
+		alert(err, "in get statements");
 	}
 }
