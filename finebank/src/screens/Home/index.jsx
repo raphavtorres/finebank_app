@@ -69,24 +69,6 @@ export default function Home({ navigation }) {
 
 	const usedLimit = (178.0).toFixed(2);
 
-	const statementData = [
-		{
-			transaction_action: "Received",
-			source: "11111",
-			amount: 70.83,
-		},
-		{
-			transaction_action: "Sent",
-			source: "222222",
-			amount: 22.54,
-		},
-		{
-			transaction_action: "Received",
-			source: "11111",
-			amount: 23.83,
-		},
-	];
-
 	return (
 		<>
 			<GestureHandlerRootView style={{ flex: 1 }}>

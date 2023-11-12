@@ -47,3 +47,23 @@ export async function getStatements(account) {
 		alert(err, "in get statements");
 	}
 }
+
+// Getting loans
+export async function getLoans(account) {
+	try {
+		const response = await axiosInstance.get(`loans/?account=${account}`);
+		return response.data;
+	} catch (err) {
+		alert(err, "in get loans");
+	}
+}
+
+// Getting loans
+export async function getInstallments(loan) {
+	try {
+		const response = await axiosInstance.get(`installments/?loan=${loan}`);
+		return response.data;
+	} catch (err) {
+		alert(err, "in get installment");
+	}
+}

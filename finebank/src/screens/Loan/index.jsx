@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 
 import { styles } from "./style";
@@ -7,7 +7,46 @@ import UserProfileHeader from "../../components/UserProfileHeader";
 import LoanCard from "../../components/Loan/LoanCard";
 import InstallmentCard from "../../components/Loan/InstallmentCard";
 
+import { storeGet, ACCOUNT_JSON } from "../../constant/apiConstant";
+import { getLoans, getInstallments } from "../../services/api";
+import { getAccountObj } from "../../services/functions";
+
 export default function Loan() {
+	const [accountObj, setAccountObj] = useState({});
+	const [loanData, setLoanData] = useState([]);
+	const [installmentData, setInstallmentData] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+			setAccountObj(await getAccountObj());
+			console.log("ACCOUNT");
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			accountObj.id && setLoanData(await getLoans(accountObj.id));
+			console.log("LOAN DATA: ", loanData);
+		}
+		fetchData();
+	}, [accountObj.id]);
+
+	useEffect(() => {
+		async function fetchData() {
+			// Itera sobre os empréstimos para buscar as parcelas
+			for (const loan of loanData) {
+				const installments = await getInstallments(loan.id);
+				setInstallmentData((prevInstallments) => [
+					...prevInstallments,
+					...installments,
+				]);
+				console.log("INSTALLMENT DATA: ", installments);
+			}
+		}
+		fetchData();
+	}, [loanData]);
+
 	return (
 		<View style={styles.container}>
 			{/* USER PROFILE HEADER */}
@@ -17,30 +56,18 @@ export default function Loan() {
 			<View style={styles.section}>
 				<Text style={styles.sectionLabel}>Empréstimos</Text>
 				<ScrollView>
-					<LoanCard
-						amount_request="5.534,00"
-						approval_date="13/09/2023"
-						interest_rate="10%"
-						request_date="10/08/2023"
-						observation=""
-						installment_amount="2/10"
-					/>
-					<LoanCard
-						amount_request="5.534,00"
-						approval_date="13/09/2023"
-						interest_rate="10%"
-						request_date="10/08/2023"
-						observation=""
-						installment_amount="2/10"
-					/>
-					<LoanCard
-						amount_request="5.534,00"
-						approval_date="13/09/2023"
-						interest_rate="10%"
-						request_date="10/08/2023"
-						observation=""
-						installment_amount="2/10"
-					/>
+					{loanData.length > 0 &&
+						loanData.map((item) => (
+							<LoanCard
+								key={item.id}
+								amount_request={item.ammount_request}
+								approval_date={item.approval_date}
+								interest_rate={item.interest_rate}
+								request_date={item.request_date}
+								observation={item.observation}
+								installment_amount={item.installment_amount}
+							/>
+						))}
 				</ScrollView>
 			</View>
 
@@ -48,21 +75,15 @@ export default function Loan() {
 			<View style={[styles.section, styles.sectionInstallment]}>
 				<Text style={styles.sectionLabel}>Fatura</Text>
 				<ScrollView>
-					<InstallmentCard
-						number="00234"
-						payment_amount="553,40"
-						expiration_date="13/09/2023"
-					/>
-					<InstallmentCard
-						number="00234"
-						payment_amount="553,40"
-						expiration_date="13/09/2023"
-					/>
-					<InstallmentCard
-						number="00234"
-						payment_amount="553,40"
-						expiration_date="13/09/2023"
-					/>
+					{installmentData.length > 0 &&
+						installmentData.map((item) => (
+							<InstallmentCard
+								key={item.id}
+								number={item.number}
+								payment_amount={item.payment_amount}
+								expiration_date={item.expiration_date}
+							/>
+						))}
 				</ScrollView>
 				<View
 					style={{ height: 60, alignItems: "center", justifyContent: "center" }}
