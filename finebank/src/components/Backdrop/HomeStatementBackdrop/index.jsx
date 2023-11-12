@@ -37,15 +37,7 @@ export default function HomeStatementBackdrop(props) {
 				>
 					{statementData.map((transaction) => (
 						<>
-							<View
-								style={styles.transactionContainer}
-								key={
-									transaction.account_balance *
-									Math.floor(
-										(Math.random() * 30) / Math.floor(Math.random() * 20)
-									)
-								}
-							>
+							<View style={styles.transactionContainer} key={transaction.id}>
 								<View style={styles.txtView}>
 									<Text style={styles.lightTxt}>Ação:</Text>
 
@@ -62,7 +54,7 @@ export default function HomeStatementBackdrop(props) {
 									<Text style={styles.strongTxt}>R$ {transaction.amount}</Text>
 								</View>
 							</View>
-							<Separator />
+							<Separator key={transaction.id} />
 						</>
 					))}
 				</BottomSheetScrollView>

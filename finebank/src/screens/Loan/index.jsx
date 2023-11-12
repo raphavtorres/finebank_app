@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 
 import { styles } from "./style";
 
@@ -35,14 +35,12 @@ export default function Loan() {
 	useEffect(() => {
 		async function fetchData() {
 			// Itera sobre os empréstimos para buscar as parcelas
+			const installments = [];
 			for (const loan of loanData) {
-				const installments = await getInstallments(loan.id);
-				setInstallmentData((prevInstallments) => [
-					...prevInstallments,
-					...installments,
-				]);
-				console.log("INSTALLMENT DATA: ", installments);
+				installments.push(...(await getInstallments(loan.id)));
 			}
+			setInstallmentData(installments);
+			console.log("INSTALLMENT DATA: ", installments);
 		}
 		fetchData();
 	}, [loanData]);
@@ -88,9 +86,9 @@ export default function Loan() {
 				<View
 					style={{ height: 60, alignItems: "center", justifyContent: "center" }}
 				>
-					<TouchableOpacity style={styles.payInstallmentBtn}>
+					<Pressable style={styles.payInstallmentBtn}>
 						<Text style={styles.payInstallmentTxt}>Pagar</Text>
-					</TouchableOpacity>
+					</Pressable>
 				</View>
 			</View>
 		</View>
