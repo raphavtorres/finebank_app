@@ -124,3 +124,22 @@ export async function requestCard(account) {
 		alert("Não elegível para receber o cartão");
 	}
 }
+
+export async function makeTransaction(
+	id_card,
+	id_receiver,
+	amount,
+	transaction_type
+) {
+	try {
+		const response = await axiosInstance.post("transactions/", {
+			id_card: id_card,
+			id_receiver: id_receiver,
+			amount: amount,
+			transaction_type: transaction_type,
+		});
+		return response.data;
+	} catch (err) {
+		alert("Não há saldo suficiente para fazer a transação");
+	}
+}

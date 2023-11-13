@@ -118,7 +118,6 @@ export default function LoginForm({ navigation }) {
 				<LoginFormBackdrop
 					snapPoints={snapPoints}
 					bottomSheetRef={bottomSheetRef}
-					// action={handleEnterAccount}
 				/>
 			)}
 		</>
