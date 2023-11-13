@@ -29,11 +29,27 @@ export default function TransactionBackdrop(props) {
 	}, [accountObj]);
 
 	async function handleMakeTransaction(card) {
-		await makeTransaction(card.id);
+		const { accountNumber, transactionAmount } = props.formData.inputs;
+		const paymentMethod = props.formData.paymentMethod;
+
+		console.log(card.id, accountNumber, transactionAmount, paymentMethod);
+
+		await makeTransaction(
+			card.id,
+			accountNumber,
+			transactionAmount,
+			paymentMethod
+		);
+		props.navigation.navigate("Home");
 	}
 
 	return (
-		<BottomSheet ref={props.bottomSheetRef} snapPoints={props.snapPoints}>
+		<BottomSheet
+			enableOverDrag
+			enablePanDownToClose
+			ref={props.bottomSheetRef}
+			snapPoints={props.snapPoints}
+		>
 			<View style={styles.container}>
 				<Text style={styles.title}>Escolha seu cartão</Text>
 				{cardsData.map((item) => (
@@ -41,7 +57,7 @@ export default function TransactionBackdrop(props) {
 						key={item.number}
 						fields={[
 							{
-								title: `Cartão ${item.flag}`,
+								title: item.flag,
 								value: item.number,
 							},
 						]}

@@ -18,7 +18,11 @@ import { COLORS } from "../../constant/styleConstant";
 import { schema } from "./schemaTransaction";
 
 export default function Transaction({ navigation }) {
-	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(true);
+	const [formData, setFormData] = useState({
+		inputs: {},
+		paymentMethod: "",
+	});
+	const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 	const [creditSelected, setCreditSelected] = useState(false);
 	const [debitSelected, setDebitSelected] = useState(false);
 	const [payMethodError, setPayMethodError] = useState(false);
@@ -63,8 +67,10 @@ export default function Transaction({ navigation }) {
 			setPayMethodError(true);
 		} else {
 			setIsBottomSheetVisible(true);
-			console.log(data, optionSelected);
-			// navigation.navigate("Home");
+			setFormData({
+				inputs: data,
+				paymentMethod: optionSelected,
+			});
 		}
 	}
 
@@ -84,87 +90,95 @@ export default function Transaction({ navigation }) {
 
 						<View style={styles.section}>
 							{/* TRANSACTION AMOUNT */}
-							<Text style={styles.label}>Qual o valor da transferência?</Text>
-							<Controller
-								control={control}
-								name="transactionAmount"
-								render={({ field: { onChange, onBlur, value } }) => (
-									<TextInput
-										style={getInput(errors.transactionAmount)}
-										onChangeText={(value) => {
-											onChange(value);
-											trigger("transactionAmount");
-										}}
-										onBlur={onBlur} // when textinput is focused
-										value={value}
-										placeholder="R$"
-										placeholderTextColor={COLORS.primaryGray}
-										maxLength={7}
-										keyboardType="numeric"
-									/>
+							<View style={{ marginBottom: 40 }}>
+								<Text style={styles.label}>Qual o valor da transferência?</Text>
+								<Controller
+									control={control}
+									name="transactionAmount"
+									render={({ field: { onChange, onBlur, value } }) => (
+										<TextInput
+											style={getInput(errors.transactionAmount)}
+											onChangeText={(value) => {
+												onChange(value);
+												trigger("transactionAmount");
+											}}
+											onBlur={onBlur} // when textinput is focused
+											value={value}
+											placeholder="R$"
+											placeholderTextColor={COLORS.primaryGray}
+											maxLength={7}
+											keyboardType="numeric"
+										/>
+									)}
+								/>
+								{errors?.transactionAmount && (
+									<Text style={styles.labelError}>
+										{errors.transactionAmount?.message}
+									</Text>
 								)}
-							/>
-							{errors?.transactionAmount && (
-								<Text style={styles.labelError}>
-									{errors.transactionAmount?.message}
-								</Text>
-							)}
+							</View>
 
 							{/* CPF / CNPJ */}
-							<Text style={styles.label}>Para quem vai transferir?</Text>
-							<Controller
-								control={control}
-								name="cpfOrCnpj"
-								render={({ field: { onChange, onBlur, value } }) => (
-									<TextInput
-										style={getInput(errors.cpfOrCnpj)}
-										onChangeText={(value) => {
-											onChange(value);
-											trigger("cpfOrCnpj");
-										}}
-										onBlur={onBlur} // when textinput is focused
-										value={value}
-										placeholder="CPF / CNPJ"
-										placeholderTextColor={COLORS.primaryGray}
-										maxLength={14}
-										keyboardType="numeric"
-									/>
+							<View style={{ marginBottom: 40 }}>
+								<Text style={styles.label}>Para quem vai transferir?</Text>
+								<Controller
+									control={control}
+									name="accountNumber"
+									render={({ field: { onChange, onBlur, value } }) => (
+										<TextInput
+											style={getInput(errors.accountNumber)}
+											onChangeText={(value) => {
+												onChange(value);
+												trigger("accountNumber");
+											}}
+											onBlur={onBlur} // when textinput is focused
+											value={value}
+											placeholder="Conta de quem irá receber"
+											placeholderTextColor={COLORS.primaryGray}
+											maxLength={8}
+											keyboardType="numeric"
+										/>
+									)}
+								/>
+								{errors?.accountNumber && (
+									<Text style={styles.labelError}>
+										{errors.accountNumber?.message}
+									</Text>
 								)}
-							/>
-							{errors?.cpfOrCnpj && (
-								<Text style={styles.labelError}>
-									{errors.cpfOrCnpj?.message}
-								</Text>
-							)}
-							<Text style={styles.label}>Qual o método de pagamento?</Text>
-							<View
-								style={{ width: "95%", flexDirection: "row", marginTop: 20 }}
-							>
-								<SelectBtn
-									selected={creditSelected}
-									setSelected={setCreditSelected}
-									text="Crédito"
-									width={112}
-								/>
-								<SelectBtn
-									selected={debitSelected}
-									setSelected={setDebitSelected}
-									text="Débito"
-									width={112}
-								/>
 							</View>
-							{payMethodError && (
-								<Text style={styles.labelError}>
-									Escolha uma forma de pagamento, é obrigatória.
-								</Text>
-							)}
+
+							{/* PAYMENT METHOD */}
+							<View style={{ marginBottom: 40 }}>
+								<Text style={styles.label}>Qual o método de pagamento?</Text>
+								<View
+									style={{ width: "95%", flexDirection: "row", marginTop: 20 }}
+								>
+									<SelectBtn
+										selected={creditSelected}
+										setSelected={setCreditSelected}
+										text="Crédito"
+										width={112}
+									/>
+									<SelectBtn
+										selected={debitSelected}
+										setSelected={setDebitSelected}
+										text="Débito"
+										width={112}
+									/>
+								</View>
+								{payMethodError && (
+									<Text style={styles.labelError}>
+										Escolha uma forma de pagamento, é obrigatória.
+									</Text>
+								)}
+							</View>
 						</View>
 						<View
 							style={{
 								height: "100%",
 								width: "100%",
 								justifyContent: "flex-end",
-								paddingTop: 130,
+								paddingTop: 90,
 								paddingRight: 10,
 							}}
 						>
@@ -176,8 +190,10 @@ export default function Transaction({ navigation }) {
 					</View>
 					{isBottomSheetVisible && (
 						<TransactionBackdrop
+							navigation={navigation}
 							snapPoints={snapPoints}
 							bottomSheetRef={bottomSheetRef}
+							formData={formData}
 						/>
 					)}
 				</BottomSheetModalProvider>

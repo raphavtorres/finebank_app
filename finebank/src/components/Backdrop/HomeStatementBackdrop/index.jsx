@@ -36,9 +36,9 @@ export default function HomeStatementBackdrop(props) {
 					style={{ width: "87%" }}
 				>
 					{statementData &&
-						statementData.map((transaction) => (
+						statementData.map((transaction, i) => (
 							<>
-								<View style={styles.transactionContainer} key={transaction.id}>
+								<View style={styles.transactionContainer} key={i}>
 									<View style={styles.txtView}>
 										<Text style={styles.lightTxt}>Ação:</Text>
 

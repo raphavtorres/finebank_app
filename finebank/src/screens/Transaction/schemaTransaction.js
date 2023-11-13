@@ -1,22 +1,26 @@
 import * as yup from "yup";
 
 export const schema = yup.object({
-	cpfOrCnpj: yup
+	accountNumber: yup
 		.string()
-		.transform((value, originalValue) => {
-			// Remove todos os caracteres que não são dígitos
-			if (originalValue) {
-				return originalValue.replace(/[^\d]/g, "");
-			}
-			return "";
-		})
-		.test("valid-cpf-cnpj", "Digite um CPF / CNPJ válido", (value) => {
-			if (!value) return true; // Aceitar campo vazio
-			const isCpfValid = value.length === 11;
-			const isCnpjValid = value.length === 14;
-			return isCpfValid || isCnpjValid;
-		})
-		.required("CPF / CNPJ é um campo obrigatório"),
+		.min(8)
+		.max(8)
+		.required("A conta de quem irá receber é obrigatório"),
+	// .string()
+	// .transform((value, originalValue) => {
+	// 	// Remove todos os caracteres que não são dígitos
+	// 	if (originalValue) {
+	// 		return originalValue.replace(/[^\d]/g, "");
+	// 	}
+	// 	return "";
+	// })
+	// .test("valid-cpf-cnpj", "Digite um CPF / CNPJ válido", (value) => {
+	// 	if (!value) return true; // Aceitar campo vazio
+	// 	const isCpfValid = value.length === 11;
+	// 	const isCnpjValid = value.length === 14;
+	// 	return isCpfValid || isCnpjValid;
+	// })
+	// .required("CPF / CNPJ é um campo obrigatório"),
 
 	transactionAmount: yup
 		.string()

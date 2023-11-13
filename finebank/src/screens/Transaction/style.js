@@ -26,7 +26,6 @@ export const styles = StyleSheet.create({
 		backgroundColor: COLORS.primaryBlack,
 		paddingBottom: 10,
 		marginTop: 10,
-		marginBottom: 70,
 		color: COLORS.primaryWhite,
 		fontSize: 20,
 		borderBottomColor: COLORS.primaryWhite,

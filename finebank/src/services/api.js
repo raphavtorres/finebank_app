@@ -127,19 +127,19 @@ export async function requestCard(account) {
 
 export async function makeTransaction(
 	id_card,
-	id_receiver,
+	acc_receiver,
 	amount,
 	transaction_type
 ) {
 	try {
 		const response = await axiosInstance.post("transactions/", {
 			id_card: id_card,
-			id_receiver: id_receiver,
+			acc_receiver: acc_receiver,
 			amount: amount,
 			transaction_type: transaction_type,
 		});
 		return response.data;
 	} catch (err) {
-		alert("Não há saldo suficiente para fazer a transação");
+		alert(err, "Não há saldo suficiente para fazer a transação");
 	}
 }
