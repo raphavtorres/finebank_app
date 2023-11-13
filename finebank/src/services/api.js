@@ -113,3 +113,14 @@ export async function postAccountInvestments(investment, account) {
 		alert("Não há saldo suficiente para investir");
 	}
 }
+
+export async function requestCard(account) {
+	try {
+		const response = await axiosInstance.post("cards/", {
+			account: account,
+		});
+		return response.data;
+	} catch (err) {
+		alert("Não elegível para receber o cartão");
+	}
+}

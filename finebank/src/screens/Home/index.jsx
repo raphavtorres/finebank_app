@@ -14,7 +14,7 @@ import Card from "../../components/Card";
 import HomeStatementBackdrop from "../../components/Backdrop/HomeStatementBackdrop";
 
 import { getAccountObj } from "../../services/functions";
-import { getCards, getStatements } from "../../services/api";
+import { getCards, getStatements, requestCard } from "../../services/api";
 
 export default function Home({ navigation }) {
 	const [accountObj, setAccountObj] = useState({});
@@ -61,11 +61,6 @@ export default function Home({ navigation }) {
 	function handleStatementOpen() {
 		setIsBottomSheetVisible(true);
 		bottomSheetRef.current?.snapToIndex(1);
-	}
-
-	function requestCard() {
-		// code to request card
-		console.log("request card");
 	}
 
 	const usedLimit = (178.0).toFixed(2);
@@ -129,7 +124,7 @@ export default function Home({ navigation }) {
 								<OptCard
 									name="Solicitar Cartão"
 									url="card"
-									action={requestCard}
+									action={async () => await requestCard(accountObj.id)}
 								/>
 							</ScrollView>
 						</View>
