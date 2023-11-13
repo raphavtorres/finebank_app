@@ -9,10 +9,9 @@ export const axiosInstance = axios.create({
 export async function getAccounts() {
 	try {
 		const response = await axiosInstance.get("accounts/");
-
 		return response.data;
 	} catch (err) {
-		alert(err, "in get accounts");
+		alert(err, " | erro ao pegar as contas");
 	}
 }
 
@@ -22,7 +21,7 @@ export async function getUser(user_type) {
 		const response = await axiosInstance.get(`${user_type}-people/`);
 		return response.data[0];
 	} catch (err) {
-		alert(err, "in get user");
+		alert(err, " | erro ao pegar o usuário");
 	}
 }
 
@@ -32,7 +31,7 @@ export async function getCards(account) {
 		const response = await axiosInstance.get(`cards/?account=${account}`);
 		return response.data;
 	} catch (err) {
-		alert(err, "in get cards");
+		alert(err, " | erro ao pegar os cartões");
 	}
 }
 
@@ -44,7 +43,7 @@ export async function getStatements(account) {
 		);
 		return response.data;
 	} catch (err) {
-		alert(err, "in get statements");
+		alert(err, " | erro ao pegar as transações");
 	}
 }
 
@@ -54,7 +53,7 @@ export async function getLoans(account) {
 		const response = await axiosInstance.get(`loans/?account=${account}`);
 		return response.data.filter((loan) => !loan.is_payout);
 	} catch (err) {
-		alert(err, "in get loans");
+		alert(err, " | erro ao pegar os empréstimos");
 	}
 }
 
@@ -64,7 +63,7 @@ export async function getInstallments(loan) {
 		const response = await axiosInstance.get(`installments/?loan=${loan}`);
 		return response.data.filter((installment) => !installment.is_paid);
 	} catch (err) {
-		alert(err, "in get installment");
+		alert(err, " | erro ao pegar as parcelas");
 	}
 }
 
@@ -77,5 +76,40 @@ export async function patchLoan(loan, account) {
 		return response.data;
 	} catch (err) {
 		alert("Não há saldo suficiente para pagar as parcelas");
+	}
+}
+
+// Getting investments
+export async function getInvestments() {
+	try {
+		const response = await axiosInstance.get("investments/");
+		return response.data;
+	} catch (err) {
+		alert(err, " | erro ao pegar os investimentos");
+	}
+}
+
+// Getting account investments
+export async function getAccountInvestments(account) {
+	try {
+		const response = await axiosInstance.get(
+			`account-investments/?account=${account}`
+		);
+		return response.data;
+	} catch (err) {
+		alert(err, " | erro ao pegar os investimentos da sua conta");
+	}
+}
+
+// Create account investment
+export async function postAccountInvestments(investment, account) {
+	try {
+		const response = await axiosInstance.post("account-investments/", {
+			id_investment: investment,
+			id_account: account,
+		});
+		return response.data;
+	} catch (err) {
+		alert("Não há saldo suficiente para investir");
 	}
 }

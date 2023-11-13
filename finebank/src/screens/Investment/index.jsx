@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 
 import { styles } from "./style";
 
 import UserProfileHeader from "../../components/UserProfileHeader";
 import InvestmentCard from "../../components/InvestmentCard";
-// import { Card } from "react-pay-card";
+
+import { getInvestments, getAccountInvestments } from "../../services/api";
+import { getAccountObj } from "../../services/functions";
 
 export default function Investment() {
+	const [accountObj, setAccountObj] = useState({});
+	const [data, setData] = useState({
+		investments: [],
+		accountInvestments: [],
+	});
+
+	useEffect(() => {
+		async function fetchData() {
+			setAccountObj(await getAccountObj());
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			accountObj.id &&
+				setData({
+					investments: await getInvestments(),
+					accountInvestments: await getAccountInvestments(accountObj.id),
+				});
+		}
+		fetchData();
+	}, [accountObj]);
+
 	return (
 		<View style={styles.container}>
 			{/* USER PROFILE HEADER */}
@@ -17,33 +43,18 @@ export default function Investment() {
 			<View style={styles.section}>
 				<Text style={styles.sectionLabel}>Meus investimentos</Text>
 				<ScrollView>
-					<InvestmentCard
-						myInvestment
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-						income="R$ 10,56"
-					/>
-					<InvestmentCard
-						myInvestment
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-						income="R$ 10,56"
-					/>
-					<InvestmentCard
-						myInvestment
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-						income="R$ 10,56"
-					/>
+					{data.accountInvestments.map((item) => (
+						<InvestmentCard
+							key={item.id}
+							myInvestment
+							investment_type={item.investment_type}
+							risc_rate={item.risc_rate}
+							admin_fee={item.admin_fee}
+							contribution={item.contribution}
+							period={item.period}
+							income={item.income}
+						/>
+					))}
 				</ScrollView>
 			</View>
 
@@ -51,27 +62,18 @@ export default function Investment() {
 			<View style={styles.section}>
 				<Text style={styles.sectionLabel}>Produtos disponíveis</Text>
 				<ScrollView>
-					<InvestmentCard
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-					/>
-					<InvestmentCard
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-					/>
-					<InvestmentCard
-						investment_type="Tesouro Direto"
-						risc_rate="10,09% a.a."
-						admin_fee="22% a 15% de IR"
-						contribution="R$ 200,00"
-						period="01/01/2026"
-					/>
+					{data.investments.map((item) => (
+						<InvestmentCard
+							key={item.id}
+							investment_id={item.id}
+							account={accountObj.id}
+							investment_type={item.investment_type}
+							risc_rate={item.risc_rate}
+							admin_fee={item.admin_fee}
+							contribution={item.contribution}
+							period={item.period}
+						/>
+					))}
 				</ScrollView>
 			</View>
 		</View>

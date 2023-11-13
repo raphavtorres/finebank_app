@@ -54,7 +54,8 @@ export default function Home({ navigation }) {
 	}, [accountObj]);
 
 	useEffect(() => {
-		data.cardsData.length > 0 && setCardMap(data.cardsData);
+		data.cardsData && setCardMap(data.cardsData);
+		// data.cardsData.length > 0 && setCardMap(data.cardsData);
 	}, [data.cardsData]);
 
 	function handleStatementOpen() {

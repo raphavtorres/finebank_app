@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { COLORS } from "../constant/styleConstant";
 
+import { postAccountInvestments } from "../services/api";
+
 export default function InvestmentCard(props) {
 	return (
 		<View style={styles.investmentCard}>
@@ -27,7 +29,12 @@ export default function InvestmentCard(props) {
 				{props.myInvestment ? (
 					<Text style={styles.income}>{props.income}</Text>
 				) : (
-					<TouchableOpacity style={styles.addInvestBtn}>
+					<TouchableOpacity
+						onPress={async () =>
+							await postAccountInvestments(props.investment_id, props.account)
+						}
+						style={styles.addInvestBtn}
+					>
 						<Text style={styles.addInvestTxt}>Adicionar</Text>
 					</TouchableOpacity>
 				)}
