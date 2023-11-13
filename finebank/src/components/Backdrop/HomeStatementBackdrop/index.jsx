@@ -35,28 +35,31 @@ export default function HomeStatementBackdrop(props) {
 					showsHorizontalScrollIndicator={false}
 					style={{ width: "87%" }}
 				>
-					{statementData.map((transaction) => (
-						<>
-							<View style={styles.transactionContainer} key={transaction.id}>
-								<View style={styles.txtView}>
-									<Text style={styles.lightTxt}>Ação:</Text>
+					{statementData &&
+						statementData.map((transaction) => (
+							<>
+								<View style={styles.transactionContainer} key={transaction.id}>
+									<View style={styles.txtView}>
+										<Text style={styles.lightTxt}>Ação:</Text>
 
-									<Text style={styles.strongTxt}>
-										{transaction.transaction_action}
-									</Text>
+										<Text style={styles.strongTxt}>
+											{transaction.transaction_action}
+										</Text>
+									</View>
+									<View style={styles.txtView}>
+										<Text style={styles.lightTxt}>De:</Text>
+										<Text style={styles.strongTxt}>{transaction.source}</Text>
+									</View>
+									<View style={styles.txtView}>
+										<Text style={styles.lightTxt}>Valor:</Text>
+										<Text style={styles.strongTxt}>
+											R$ {transaction.amount}
+										</Text>
+									</View>
 								</View>
-								<View style={styles.txtView}>
-									<Text style={styles.lightTxt}>De:</Text>
-									<Text style={styles.strongTxt}>{transaction.source}</Text>
-								</View>
-								<View style={styles.txtView}>
-									<Text style={styles.lightTxt}>Valor:</Text>
-									<Text style={styles.strongTxt}>R$ {transaction.amount}</Text>
-								</View>
-							</View>
-							<Separator key={transaction.id} />
-						</>
-					))}
+								<Separator key={transaction.id} />
+							</>
+						))}
 				</BottomSheetScrollView>
 			</View>
 		</BottomSheet>
