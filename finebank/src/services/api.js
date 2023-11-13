@@ -52,7 +52,7 @@ export async function getStatements(account) {
 export async function getLoans(account) {
 	try {
 		const response = await axiosInstance.get(`loans/?account=${account}`);
-		return response.data;
+		return response.data.filter((loan) => !loan.is_payout);
 	} catch (err) {
 		alert(err, "in get loans");
 	}
@@ -62,8 +62,20 @@ export async function getLoans(account) {
 export async function getInstallments(loan) {
 	try {
 		const response = await axiosInstance.get(`installments/?loan=${loan}`);
-		return response.data;
+		return response.data.filter((installment) => !installment.is_paid);
 	} catch (err) {
 		alert(err, "in get installment");
+	}
+}
+
+// Updating loans
+export async function patchLoan(loan, account) {
+	try {
+		const response = await axiosInstance.patch(
+			`loans/${loan}/?account=${account}`
+		);
+		return response.data;
+	} catch (err) {
+		alert("Não há saldo suficiente para pagar as parcelas");
 	}
 }

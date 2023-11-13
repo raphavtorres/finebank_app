@@ -44,14 +44,14 @@ export default function Home({ navigation }) {
 
 	useEffect(() => {
 		async function fetchData() {
-			accountObj.id != undefined &&
+			accountObj.id &&
 				setData({
 					cardsData: await getCards(accountObj.id),
 					statementData: await getStatements(accountObj.id),
 				});
 		}
 		fetchData();
-	}, [accountObj.id]);
+	}, [accountObj]);
 
 	useEffect(() => {
 		data.cardsData.length > 0 && setCardMap(data.cardsData);

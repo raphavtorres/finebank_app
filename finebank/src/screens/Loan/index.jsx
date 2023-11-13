@@ -8,7 +8,7 @@ import LoanCard from "../../components/Loan/LoanCard";
 import InstallmentCard from "../../components/Loan/InstallmentCard";
 
 import { storeGet, ACCOUNT_JSON } from "../../constant/apiConstant";
-import { getLoans, getInstallments } from "../../services/api";
+import { getLoans, getInstallments, patchLoan } from "../../services/api";
 import { getAccountObj } from "../../services/functions";
 
 export default function Loan() {
@@ -30,7 +30,7 @@ export default function Loan() {
 			console.log("LOAN DATA: ", loanData);
 		}
 		fetchData();
-	}, [accountObj.id]);
+	}, [accountObj]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -44,6 +44,14 @@ export default function Loan() {
 		}
 		fetchData();
 	}, [loanData]);
+
+	async function payLoanInstallment() {
+		if (loanData) {
+			for (const loan of loanData) {
+				await patchLoan(loan.id, accountObj.id);
+			}
+		}
+	}
 
 	return (
 		<View style={styles.container}>
@@ -86,7 +94,10 @@ export default function Loan() {
 				<View
 					style={{ height: 60, alignItems: "center", justifyContent: "center" }}
 				>
-					<Pressable style={styles.payInstallmentBtn}>
+					<Pressable
+						onPress={() => payLoanInstallment()}
+						style={styles.payInstallmentBtn}
+					>
 						<Text style={styles.payInstallmentTxt}>Pagar</Text>
 					</Pressable>
 				</View>
