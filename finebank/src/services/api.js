@@ -57,7 +57,27 @@ export async function getLoans(account) {
 	}
 }
 
-// Getting loans
+// Requesting loan
+export async function postLoan(
+	account,
+	amount_request,
+	installment_amount,
+	observation
+) {
+	try {
+		const response = await axiosInstance.post("loans/", {
+			account: account,
+			amount_request: amount_request,
+			installment_amount: installment_amount,
+			observation: observation,
+		});
+		return response.data;
+	} catch (err) {
+		alert("Não elegível para receber o empréstimo");
+	}
+}
+
+// Getting installments
 export async function getInstallments(loan) {
 	try {
 		const response = await axiosInstance.get(`installments/?loan=${loan}`);
@@ -114,6 +134,7 @@ export async function postAccountInvestments(investment, account) {
 	}
 }
 
+// Requesting Card
 export async function requestCard(account) {
 	try {
 		const response = await axiosInstance.post("cards/", {
@@ -125,6 +146,7 @@ export async function requestCard(account) {
 	}
 }
 
+// Making transaction
 export async function makeTransaction(
 	id_card,
 	acc_receiver,

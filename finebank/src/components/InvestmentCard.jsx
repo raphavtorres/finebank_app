@@ -30,9 +30,10 @@ export default function InvestmentCard(props) {
 					<Text style={styles.income}>{props.income}</Text>
 				) : (
 					<TouchableOpacity
-						onPress={async () =>
-							await postAccountInvestments(props.investment_id, props.account)
-						}
+						onPress={async () => {
+							await postAccountInvestments(props.investment_id, props.account);
+							props.navigation.navigate("Home");
+						}}
 						style={styles.addInvestBtn}
 					>
 						<Text style={styles.addInvestTxt}>Adicionar</Text>

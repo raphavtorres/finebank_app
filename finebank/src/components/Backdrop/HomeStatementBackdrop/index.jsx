@@ -37,8 +37,8 @@ export default function HomeStatementBackdrop(props) {
 				>
 					{statementData &&
 						statementData.map((transaction, i) => (
-							<>
-								<View style={styles.transactionContainer} key={i}>
+							<View key={i}>
+								<View style={styles.transactionContainer}>
 									<View style={styles.txtView}>
 										<Text style={styles.lightTxt}>Ação:</Text>
 
@@ -57,8 +57,8 @@ export default function HomeStatementBackdrop(props) {
 										</Text>
 									</View>
 								</View>
-								<Separator key={transaction.id} />
-							</>
+								<Separator />
+							</View>
 						))}
 				</BottomSheetScrollView>
 			</View>

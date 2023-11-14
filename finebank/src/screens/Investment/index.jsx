@@ -9,7 +9,7 @@ import InvestmentCard from "../../components/InvestmentCard";
 import { getInvestments, getAccountInvestments } from "../../services/api";
 import { getAccountObj } from "../../services/functions";
 
-export default function Investment() {
+export default function Investment({ navigation }) {
 	const [accountObj, setAccountObj] = useState({});
 	const [data, setData] = useState({
 		investments: [],
@@ -65,6 +65,7 @@ export default function Investment() {
 					{data.investments.map((item) => (
 						<InvestmentCard
 							key={item.id}
+							navigation={navigation}
 							investment_id={item.id}
 							account={accountObj.id}
 							investment_type={item.investment_type}

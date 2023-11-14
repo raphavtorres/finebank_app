@@ -12,6 +12,9 @@ import ButtonWide from "../../components/ButtonWide";
 import { COLORS } from "../../constant/styleConstant";
 import { schema } from "./schemaLoan";
 
+import { postLoan } from "../../services/api";
+import { getAccountObj } from "../../services/functions";
+
 export default function RequestLoan({ navigation }) {
 	const {
 		control,
@@ -22,8 +25,14 @@ export default function RequestLoan({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function handleConfirm(data) {
-		console.log("requested loan");
+	async function requestLoan(data) {
+		const account = await getAccountObj();
+		const account_id = account.id;
+
+		const { loanAmount, installmentsAmount, observation } = data;
+
+		await postLoan(account_id, loanAmount, installmentsAmount, observation);
+		navigation.navigate("Home");
 	}
 
 	function getInput(error) {
@@ -129,7 +138,7 @@ export default function RequestLoan({ navigation }) {
 					paddingRight: 10,
 				}}
 			>
-				<ButtonWide btnMsg="Confirmar" action={handleSubmit(handleConfirm)} />
+				<ButtonWide btnMsg="Confirmar" action={handleSubmit(requestLoan)} />
 			</View>
 		</View>
 	);
