@@ -118,7 +118,7 @@ export default function Transaction({ navigation }) {
 								)}
 							</View>
 
-							{/* CPF / CNPJ */}
+							{/* ACCOUNT RECEIVER */}
 							<View style={{ marginBottom: 40 }}>
 								<Text style={styles.label}>Para quem vai transferir?</Text>
 								<Controller

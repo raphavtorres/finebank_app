@@ -10,7 +10,7 @@ import InstallmentCard from "../../components/Loan/InstallmentCard";
 import { getLoans, getInstallments, patchLoan } from "../../services/api";
 import { getAccountObj } from "../../services/functions";
 
-export default function Loan() {
+export default function Loan({ navigation }) {
 	const [accountObj, setAccountObj] = useState({});
 	const [loanData, setLoanData] = useState([]);
 	const [installmentData, setInstallmentData] = useState([]);
@@ -45,6 +45,7 @@ export default function Loan() {
 		if (loanData) {
 			for (const loan of loanData) {
 				await patchLoan(loan.id, accountObj.id);
+				navigation.navigate("Home");
 			}
 		}
 	}
@@ -88,13 +89,24 @@ export default function Loan() {
 					))}
 				</ScrollView>
 				<View
-					style={{ height: 60, alignItems: "center", justifyContent: "center" }}
+					style={{
+						height: 60,
+						alignItems: "center",
+						justifyContent: "center",
+						flexDirection: "row",
+					}}
 				>
 					<Pressable
 						onPress={() => payLoanInstallment()}
 						style={styles.payInstallmentBtn}
 					>
 						<Text style={styles.payInstallmentTxt}>Pagar</Text>
+					</Pressable>
+					<Pressable
+						onPress={() => navigation.navigate("RequestLoan")}
+						style={styles.requestLoanBtn}
+					>
+						<Text style={styles.payInstallmentTxt}>Pedir empréstimo</Text>
 					</Pressable>
 				</View>
 			</View>

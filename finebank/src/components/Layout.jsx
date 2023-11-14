@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Home from "../screens/Home";
 import Investment from "../screens/Investment";
 import Loan from "../screens/Loan";
+import RequestLoan from "../screens/RequestLoan";
 import Transaction from "../screens/Transaction";
 import SignUpHome from "../screens/SignUp/SignUpHome";
 import SignUpPF from "../screens/SignUp/SignUpPF";
@@ -33,6 +34,7 @@ export default function Layout() {
 						<Stack.Screen name="Home" component={Home} />
 						<Stack.Screen name="Investment" component={Investment} />
 						<Stack.Screen name="Loan" component={Loan} />
+						<Stack.Screen name="RequestLoan" component={RequestLoan} />
 						<Stack.Screen name="Transaction" component={Transaction} />
 					</>
 				) : (
@@ -45,17 +47,6 @@ export default function Layout() {
 						<Stack.Screen name="SignUpAddress" component={SignUpAddress} />
 					</>
 				)}
-
-				{/* <Stack.Screen name="Welcome" component={Welcome} /> */}
-				{/* <Stack.Screen name="Login" component={Login} /> */}
-				{/* <Stack.Screen name="Home" component={Home} /> */}
-				{/* <Stack.Screen name="Investment" component={Investment} /> */}
-				{/* <Stack.Screen name="Loan" component={Loan} /> */}
-				{/* <Stack.Screen name="Transaction" component={Transaction} /> */}
-				{/* <Stack.Screen name="SignUpHome" component={SignUpHome} /> */}
-				{/* <Stack.Screen name="SignUpPF" component={SignUpPF} /> */}
-				{/* <Stack.Screen name="SignUpPJ" component={SignUpPJ} /> */}
-				{/* <Stack.Screen name="SignUpAddress" component={SignUpAddress} /> */}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

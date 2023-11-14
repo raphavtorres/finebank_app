@@ -35,6 +35,16 @@ export const styles = StyleSheet.create({
 		marginHorizontal: 5,
 	},
 
+	requestLoanBtn: {
+		width: 180,
+		height: 33,
+		borderRadius: 5,
+		backgroundColor: COLORS.lightYellow,
+		justifyContent: "center",
+		alignItems: "center",
+		marginHorizontal: 5,
+	},
+
 	payInstallmentTxt: {
 		color: COLORS.primaryBlack,
 		fontSize: 16,
