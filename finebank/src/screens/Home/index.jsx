@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import { View, Text, ScrollView, Image, Pressable } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { ProgressBar } from "react-native-paper";
 
 import { styles } from "./style";
@@ -14,9 +15,15 @@ import Card from "../../components/Card";
 import HomeStatementBackdrop from "../../components/Backdrop/HomeStatementBackdrop";
 
 import { getAccountObj } from "../../services/functions";
-import { getCards, getStatements, requestCard } from "../../services/api";
+import {
+	getCards,
+	getStatements,
+	requestCard,
+	getAccountById,
+} from "../../services/api";
 
 export default function Home({ navigation }) {
+	const [accountFirstRender, setAccountFirstRender] = useState({});
 	const [accountObj, setAccountObj] = useState({});
 	const [data, setData] = useState({
 		cardsData: [],
@@ -37,10 +44,20 @@ export default function Home({ navigation }) {
 
 	useEffect(() => {
 		async function fetchData() {
-			setAccountObj(await getAccountObj());
+			setAccountFirstRender(await getAccountObj());
 		}
 		fetchData();
 	}, []);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			async function fetchData() {
+				accountFirstRender.id &&
+					setAccountObj(await getAccountById(accountFirstRender.id));
+			}
+			fetchData();
+		}, [navigation, accountFirstRender])
+	);
 
 	useEffect(() => {
 		async function fetchData() {

@@ -15,6 +15,16 @@ export async function getAccounts() {
 	}
 }
 
+// Getting account by id
+export async function getAccountById(account) {
+	try {
+		const response = await axiosInstance.get(`accounts/${account}/`);
+		return response.data;
+	} catch (err) {
+		alert(err, " | erro ao pegar a conta pelo id");
+	}
+}
+
 // Geting user
 export async function getUser(user_type) {
 	try {
