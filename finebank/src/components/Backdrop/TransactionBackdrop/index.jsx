@@ -32,8 +32,6 @@ export default function TransactionBackdrop(props) {
 		const { accountNumber, transactionAmount } = props.formData.inputs;
 		const paymentMethod = props.formData.paymentMethod;
 
-		console.log(card.id, accountNumber, transactionAmount, paymentMethod);
-
 		await makeTransaction(
 			card.id,
 			accountNumber,
