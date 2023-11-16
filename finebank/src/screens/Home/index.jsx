@@ -72,7 +72,6 @@ export default function Home({ navigation }) {
 
 	useEffect(() => {
 		data.cardsData && setCardMap(data.cardsData);
-		// data.cardsData.length > 0 && setCardMap(data.cardsData);
 	}, [data && data.cardsData]);
 
 	function handleStatementOpen() {

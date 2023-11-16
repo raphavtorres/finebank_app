@@ -5,6 +5,7 @@ import {
 	Keyboard,
 	KeyboardAvoidingView,
 	Image,
+	Text
 } from "react-native";
 
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -16,14 +17,14 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 
 export default function Login({ navigation }) {
 	return (
-		<GestureHandlerRootView style={{ flex: 1 }}>
+		<GestureHandlerRootView style={{ flex: 2 }}>
 			<BottomSheetModalProvider>
 				<View style={styles.container}>
 					<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 						<KeyboardAvoidingView behavior="height">
 							<View>
 								<Image
-									style={{ position: "absolute", right: 0 }}
+									style={{ position: "absolute", right: 0, top: 0 }}
 									source={require("../../assets/header-component-img.png")}
 								/>
 								<LoginHeader />

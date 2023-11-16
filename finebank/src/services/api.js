@@ -103,6 +103,7 @@ export async function patchLoan(loan, account) {
 		const response = await axiosInstance.patch(
 			`loans/${loan}/?account=${account}`
 		);
+		alert("Fatura paga com sucesso!");
 		return response.data;
 	} catch (err) {
 		alert("Não há saldo suficiente para pagar as parcelas");
@@ -138,6 +139,7 @@ export async function postAccountInvestments(investment, account) {
 			id_investment: investment,
 			id_account: account,
 		});
+		alert("Investimento feito com sucesso!");
 		return response.data;
 	} catch (err) {
 		alert("Não há saldo suficiente para investir");
@@ -150,9 +152,10 @@ export async function requestCard(account) {
 		const response = await axiosInstance.post("cards/", {
 			account: account,
 		});
+		alert("Cartão solicitado!");
 		return response.data;
 	} catch (err) {
-		alert("Não elegível para receber o cartão");
+		alert("Não elegível para receber o cartão!");
 	}
 }
 
@@ -172,6 +175,6 @@ export async function makeTransaction(
 		});
 		return response.data;
 	} catch (err) {
-		alert(err, "Não há saldo suficiente para fazer a transação");
+		alert(err, "Não há saldo suficiente para fazer a transação!");
 	}
 }
