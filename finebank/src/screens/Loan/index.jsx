@@ -63,7 +63,7 @@ export default function Loan({ navigation }) {
 					{loanData.map((item) => (
 						<LoanCard
 							key={item.id}
-							amount_request={item.ammount_request}
+							amount_request={item.amount_request}
 							approval_date={item.approval_date}
 							interest_rate={item.interest_rate}
 							request_date={item.request_date}

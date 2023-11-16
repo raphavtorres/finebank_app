@@ -158,15 +158,15 @@ export async function requestCard(account) {
 
 // Making transaction
 export async function makeTransaction(
-	id_card,
-	acc_receiver,
+	card,
+	receiver_acc_number,
 	amount,
 	transaction_type
 ) {
 	try {
 		const response = await axiosInstance.post("transactions/", {
-			id_card: id_card,
-			acc_receiver: acc_receiver,
+			card: card,
+			receiver_acc_number: receiver_acc_number,
 			amount: amount,
 			transaction_type: transaction_type,
 		});
