@@ -1,8 +1,10 @@
 import {
 	storeGet,
+	storeSet,
 	USER_TYPE,
 	USER_JSON,
 	ACCOUNT_JSON,
+	SIGNUP_DATA,
 } from "../constant/apiConstant";
 
 export async function getUsername() {
@@ -14,4 +16,13 @@ export async function getUsername() {
 
 export async function getAccountObj() {
 	return JSON.parse(await storeGet(ACCOUNT_JSON));
+}
+
+export async function setSignUpData(signUpData) {
+	const signUpDataAsString = JSON.stringify(signUpData);
+	await storeSet(SIGNUP_DATA, signUpDataAsString);
+}
+
+export async function getSignUpData() {
+	return JSON.parse(await storeGet(SIGNUP_DATA));
 }

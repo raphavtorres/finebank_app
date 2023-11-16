@@ -12,6 +12,7 @@ import { COLORS } from "../../constant/styleConstant";
 import ButtonWide from "../ButtonWide";
 
 import { schema } from "./schemaSignUpAddress";
+import { getSignUpData } from "../../services/functions";
 
 export default function SignUpAddressForm({ navigation }) {
 	const {
@@ -23,9 +24,14 @@ export default function SignUpAddressForm({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function handleSignUp(data) {
-		console.log(data);
-		navigation.navigate("Home");
+	async function handleSignUp(data) {
+		console.log("SignUp Data: ", await getSignUpData());
+
+		// get singup data from signup form + password
+		// create account
+		// create address passing customer
+		console.log("SignUp Address Data: ", data);
+		navigation.navigate("Login");
 	}
 
 	function getInput(error) {

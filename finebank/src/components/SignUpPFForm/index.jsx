@@ -13,10 +13,12 @@ import ButtonWide from "../ButtonWide";
 import SelectBtn from "../SelectBtn";
 
 import { schema } from "./schemaSignUpPF";
+import { setSignUpData } from "../../services/functions";
 
 export default function SignUpPFForm({ navigation }) {
 	const [PJselected, setPJselected] = useState(false);
 	const [PFselected, setPFselected] = useState(false);
+	const [accountTypeError, setAccountTypeError] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
 
 	useEffect(() => {
@@ -48,9 +50,13 @@ export default function SignUpPFForm({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function handleSignUp(data) {
-		console.log(data);
-		navigation.navigate("SignUpAddress");
+	async function handleSignUp(data) {
+		if (optionSelected == "") {
+			setAccountTypeError(true);
+		} else {
+			await setSignUpData(data);
+			navigation.navigate("SignUpAddress");
+		}
 	}
 
 	function getInput(error) {
@@ -282,6 +288,13 @@ export default function SignUpPFForm({ navigation }) {
 						text="Poupança"
 						width={112}
 					/>
+				</View>
+				<View style={{ marginLeft: 30, marginTop: 10 }}>
+					{accountTypeError && (
+						<Text style={styles.labelError}>
+							Escolha o tipo da sua conta, é obrigatório.
+						</Text>
+					)}
 				</View>
 				<View
 					style={{

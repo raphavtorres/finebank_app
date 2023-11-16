@@ -5,6 +5,7 @@ export const JWT_KEY = "my-jwt";
 export const USER_JSON = "user-json";
 export const USER_TYPE = "user-type";
 export const ACCOUNT_JSON = "account-json";
+export const SIGNUP_DATA = "signup-data";
 
 export async function storeGet(item) {
 	return await SecureStore.getItemAsync(item);

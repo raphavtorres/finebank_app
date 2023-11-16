@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import { styles } from "./style";
 import SignUpHeader from "../../../components/SignupHeader/SignUpHeader";
 import SelectBtn from "../../../components/SelectBtn";
 import ButtonWide from "../../../components/ButtonWide";
 
-export default function SignUpHome() {
+export default function SignUpHome({ navigation }) {
 	const [PJselected, setPJselected] = useState(false);
 	const [PFselected, setPFselected] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
@@ -30,6 +30,14 @@ export default function SignUpHome() {
 			setOptionSelected("");
 		}
 	}, [PFselected, PJselected]);
+
+	function handleConfirm() {
+		if (optionSelected == "PJ") {
+			navigation.navigate("SignUpPJ");
+		} else if (optionSelected == "PF") {
+			navigation.navigate("SignUpPF");
+		}
+	}
 
 	return (
 		<View style={styles.container}>
@@ -57,8 +65,7 @@ export default function SignUpHome() {
 					paddingRight: 10,
 				}}
 			>
-				<ButtonWide btnMsg="Etapa 1/3" />
-				{/* <ButtonWide btnMsg="Etapa 1/3" action={} /> */}
+				<ButtonWide btnMsg="Etapa 1/3" action={handleConfirm} />
 			</View>
 		</View>
 	);
