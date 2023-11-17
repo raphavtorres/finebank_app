@@ -55,10 +55,15 @@ export const AuthProvider = ({ children }) => {
 	// REGISTER
 	async function register(register_number, password) {
 		try {
-			return await axiosInstance.post("auth/jwt/create/", {
+			const response = await axiosInstance.post("auth/jwt/create/", {
 				register_number: parseInt(register_number),
 				password: password,
 			});
+
+			axiosInstance.defaults.headers.common[
+				"Authorization"
+			] = `Bearer ${response.data.access}`;
+			return response.data;
 		} catch (e) {
 			return { error: true, msg: e.response.data.msg };
 		}
@@ -71,11 +76,6 @@ export const AuthProvider = ({ children }) => {
 				register_number: parseInt(register_number),
 				password: password,
 			});
-
-			// setAuthState({
-			// 	jwt: response.data.access,
-			// 	authenticated: true,
-			// });
 
 			axiosInstance.defaults.headers.common[
 				"Authorization"

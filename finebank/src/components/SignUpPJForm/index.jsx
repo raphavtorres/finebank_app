@@ -16,30 +16,30 @@ import { schema } from "./schemaSignUpPJ";
 import { setSignUpData } from "../../services/functions";
 
 export default function SignUpPFForm({ navigation }) {
-	const [PJselected, setPJselected] = useState(false);
-	const [PFselected, setPFselected] = useState(false);
+	const [savingsAcc, setSavingsAcc] = useState(false);
+	const [checkingAcc, setCheckingAcc] = useState(false);
 	const [accountTypeError, setAccountTypeError] = useState(false);
 	const [optionSelected, setOptionSelected] = useState("");
 
 	useEffect(() => {
-		if (PJselected) {
-			setPFselected(false);
-			setOptionSelected("PJ");
+		if (savingsAcc) {
+			setCheckingAcc(false);
+			setOptionSelected("savings");
 		}
-	}, [PJselected]);
+	}, [savingsAcc]);
 
 	useEffect(() => {
-		if (PFselected) {
-			setPJselected(false);
-			setOptionSelected("PF");
+		if (checkingAcc) {
+			setSavingsAcc(false);
+			setOptionSelected("checking");
 		}
-	}, [PFselected]);
+	}, [checkingAcc]);
 
 	useEffect(() => {
-		if (!PFselected && !PJselected) {
+		if (!checkingAcc && !savingsAcc) {
 			setOptionSelected("");
 		}
-	}, [PFselected, PJselected]);
+	}, [checkingAcc, savingsAcc]);
 
 	const {
 		control,
@@ -54,7 +54,7 @@ export default function SignUpPFForm({ navigation }) {
 		if (optionSelected == "") {
 			setAccountTypeError(true);
 		} else {
-			await setSignUpData(data);
+			await setSignUpData({ optionSelected, ...data });
 			navigation.navigate("SignUpAddress");
 		}
 	}
@@ -302,14 +302,14 @@ export default function SignUpPFForm({ navigation }) {
 					}}
 				>
 					<SelectBtn
-						selected={PFselected}
-						setSelected={setPFselected}
+						selected={checkingAcc}
+						setSelected={setCheckingAcc}
 						text="Corrente"
 						width={112}
 					/>
 					<SelectBtn
-						selected={PJselected}
-						setSelected={setPJselected}
+						selected={savingsAcc}
+						setSelected={setSavingsAcc}
 						text="Poupança"
 						width={112}
 					/>

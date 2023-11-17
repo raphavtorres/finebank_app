@@ -12,10 +12,18 @@ import { COLORS } from "../../constant/styleConstant";
 import ButtonWide from "../ButtonWide";
 
 import { schema } from "./schemaSignUpAddress";
+import { useAuth } from "../../context/AuthContext";
 import { getSignUpData } from "../../services/functions";
-import { createPF, createPJ, createAddress } from "../../services/api";
+import {
+	createPF,
+	createPJ,
+	createAddress,
+	createAccount,
+} from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
+	const { onRegister } = useAuth();
+
 	const {
 		control,
 		handleSubmit,
@@ -31,51 +39,73 @@ export default function SignUpAddressForm({ navigation }) {
 	}
 
 	async function handleSignUp(data) {
-		// get singup data from signup form + password
-		const signupData = await getSignUpData();
+		try {
+			// get singup data from signup form + password
+			const signupData = await getSignUpData();
 
-		var registerNumber = "";
-		const { neighborhood, street, number, city, state, cep, password } = data;
+			var registerNumber = "";
+			const { neighborhood, street, number, city, state, cep, password } = data;
 
-		// testing account type and creating account
-		// NATURAL PERSON
-		var date = "";
-		if (signupData.cpf) {
-			const { cpf, fullname, birthdate, rg, socialname, email, telephone } =
-				signupData;
-			registerNumber = cpf;
-			date = transformDate(birthdate);
-			await createPF(cpf, password, fullname, date, rg, socialname);
+			// testing account type and creating account
+			// NATURAL PERSON
+			var date = "";
+			var accType = "";
+			if (signupData.cpf) {
+				const {
+					cpf,
+					fullname,
+					birthdate,
+					rg,
+					socialname,
+					optionSelected,
+					email,
+					telephone,
+				} = signupData;
+				registerNumber = cpf;
+				date = transformDate(birthdate);
+				accType = optionSelected;
 
-			// LEGAL PERSON
-		} else if (signupData.cnpj) {
-			const {
-				cnpj,
-				name,
-				fantasyName,
-				establishmentDate,
-				im,
-				ie,
-				email,
-				telephone,
-			} = signupData;
-			registerNumber = cnpj;
-			date = transformDate(establishmentDate);
-			await createPJ(cnpj, password, fantasyName, date, im, ie, name);
+				await createPF(cpf, password, fullname, date, rg, socialname);
+
+				// LEGAL PERSON
+			} else if (signupData.cnpj) {
+				const {
+					cnpj,
+					name,
+					fantasyName,
+					establishmentDate,
+					im,
+					ie,
+					optionSelected,
+					email,
+					telephone,
+				} = signupData;
+				registerNumber = cnpj;
+				date = transformDate(establishmentDate);
+				accType = optionSelected;
+				await createPJ(cnpj, password, fantasyName, date, im, ie, name);
+			}
+
+			// ACCOUNT
+			// optionSelected
+			await onRegister(registerNumber, password);
+			await createAccount(accType);
+
+			// ADRESS
+			await createAddress(
+				neighborhood,
+				street,
+				number,
+				city,
+				state,
+				cep,
+				(customer = registerNumber)
+			);
+		} catch (err) {
+			console.log(err);
 		}
 
-		// create address passing customer
-		// await createAddress(
-		// 	neighborhood,
-		// 	street,
-		// 	number,
-		// 	city,
-		// 	state,
-		// 	cep,
-		// 	(customer = registerNumber)
-		// );
-
-		// navigation.navigate("Login");
+		navigation.navigate("Login");
 	}
 
 	function getInput(error) {

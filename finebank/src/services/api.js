@@ -186,7 +186,7 @@ export async function createPF(
 	name,
 	birthdate,
 	rg,
-	social_name
+	social_name = ""
 ) {
 	try {
 		const response = await axiosInstance.post("natural-people/", {
@@ -207,7 +207,7 @@ export async function createPF(
 export async function createPJ(
 	cnpj,
 	password,
-	fantasy_name,
+	fantasy_name = "",
 	establishment_date,
 	im,
 	ie,
@@ -226,6 +226,18 @@ export async function createPJ(
 		return response.data;
 	} catch (err) {
 		alert(err, "Erro ao criar Pessoa Jurídica");
+	}
+}
+
+// Creating account
+export async function createAccount(acc_type) {
+	try {
+		const response = await axiosInstance.post("accounts/", {
+			acc_type: acc_type,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao criar conta");
 	}
 }
 
