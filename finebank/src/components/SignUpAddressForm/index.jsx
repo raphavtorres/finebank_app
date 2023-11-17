@@ -13,6 +13,7 @@ import ButtonWide from "../ButtonWide";
 
 import { schema } from "./schemaSignUpAddress";
 import { getSignUpData } from "../../services/functions";
+import { createPF, createPJ, createAddress } from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
 	const {
@@ -24,14 +25,57 @@ export default function SignUpAddressForm({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	async function handleSignUp(data) {
-		console.log("SignUp Data: ", await getSignUpData());
+	function transformDate(date) {
+		let slices = date.split("/");
+		return slices[2] + "-" + slices[0] + "-" + slices[1];
+	}
 
+	async function handleSignUp(data) {
 		// get singup data from signup form + password
-		// create account
+		const signupData = await getSignUpData();
+
+		var registerNumber = "";
+		const { neighborhood, street, number, city, state, cep, password } = data;
+
+		// testing account type and creating account
+		// NATURAL PERSON
+		var date = "";
+		if (signupData.cpf) {
+			const { cpf, fullname, birthdate, rg, socialname, email, telephone } =
+				signupData;
+			registerNumber = cpf;
+			date = transformDate(birthdate);
+			await createPF(cpf, password, fullname, date, rg, socialname);
+
+			// LEGAL PERSON
+		} else if (signupData.cnpj) {
+			const {
+				cnpj,
+				name,
+				fantasyName,
+				establishmentDate,
+				im,
+				ie,
+				email,
+				telephone,
+			} = signupData;
+			registerNumber = cnpj;
+			date = transformDate(establishmentDate);
+			await createPJ(cnpj, password, fantasyName, date, im, ie, name);
+		}
+
 		// create address passing customer
-		console.log("SignUp Address Data: ", data);
-		navigation.navigate("Login");
+		// await createAddress(
+		// 	neighborhood,
+		// 	street,
+		// 	number,
+		// 	city,
+		// 	state,
+		// 	cep,
+		// 	(customer = registerNumber)
+		// );
+
+		// navigation.navigate("Login");
 	}
 
 	function getInput(error) {

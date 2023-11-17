@@ -178,3 +178,98 @@ export async function makeTransaction(
 		alert(err, "Não há saldo suficiente para fazer a transação!");
 	}
 }
+
+// Creating Natural Person
+export async function createPF(
+	cpf,
+	password,
+	name,
+	birthdate,
+	rg,
+	social_name
+) {
+	try {
+		const response = await axiosInstance.post("natural-people/", {
+			cpf: cpf,
+			password: password,
+			name: name,
+			birthdate: birthdate,
+			rg: rg,
+			social_name: social_name,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao criar Pessoa Física");
+	}
+}
+
+// Creating Legal Person
+export async function createPJ(
+	cnpj,
+	password,
+	fantasy_name,
+	establishment_date,
+	im,
+	ie,
+	legal_nature
+) {
+	try {
+		const response = await axiosInstance.post("legal-people/", {
+			cnpj: cnpj,
+			password: password,
+			fantasy_name: fantasy_name,
+			establishment_date: establishment_date,
+			im: im,
+			ie: ie,
+			legal_nature: legal_nature,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao criar Pessoa Jurídica");
+	}
+}
+
+// Creating Address
+export async function createAddress(
+	neighborhood,
+	street,
+	number,
+	city,
+	state,
+	cep,
+	customer
+) {
+	try {
+		const response = await axiosInstance.post("addresses/", {
+			neighborhood: neighborhood,
+			street: street,
+			number: number,
+			city: city,
+			state: state,
+			cep: cep,
+			customer: customer,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao cadastrar endereço");
+	}
+}
+
+export async function createPhone(
+	phone,
+	country_code,
+	prefix_number,
+	customer
+) {
+	try {
+		const response = await axiosInstance.post("phones/", {
+			phone,
+			country_code,
+			prefix_number,
+			customer,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao cadastrar telefone");
+	}
+}

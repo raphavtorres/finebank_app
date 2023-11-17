@@ -44,11 +44,11 @@ export const schema = yup.object({
 
 	socialname: yup
 		.string()
+		.nullable()
 		.matches(
-			/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/,
+			/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]*$/,
 			"Nome inválido. Use apenas letras e espaços."
 		)
-		.min(5, "O nome deve ter pelo menos 5 caracteres")
 		.max(40, "O nome não deve exceder 40 caracteres"),
 
 	telephone: yup
