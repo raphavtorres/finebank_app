@@ -32,6 +32,8 @@ export default function RequestLoan({ navigation }) {
 		const { loanAmount, installmentsAmount, observation } = data;
 
 		await postLoan(account_id, loanAmount, installmentsAmount, observation);
+
+		alert("Pedido de empréstimo realizada com sucesso!");
 		navigation.navigate("Home");
 	}
 
