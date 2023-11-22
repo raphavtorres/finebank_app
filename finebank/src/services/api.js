@@ -269,19 +269,31 @@ export async function createAddress(
 
 export async function createPhone(
 	phone,
-	country_code,
 	prefix_number,
-	customer
+	customer,
+	country_code = "55"
 ) {
 	try {
 		const response = await axiosInstance.post("phones/", {
-			phone,
-			country_code,
-			prefix_number,
-			customer,
+			phone: phone,
+			country_code: country_code,
+			prefix_number: prefix_number,
+			customer: customer,
 		});
 		return response.data;
 	} catch (err) {
 		alert(err, "Erro ao cadastrar telefone");
+	}
+}
+
+export async function createEmail(email, customer) {
+	try {
+		const response = await axiosInstance.post("emails/", {
+			email: email,
+			customer: customer,
+		});
+		return response.data;
+	} catch (err) {
+		alert(err, "Erro ao cadastrar email");
 	}
 }

@@ -189,7 +189,6 @@ export default function SignUpPFForm({ navigation }) {
 								}}
 								onBlur={onBlur}
 								value={value}
-								// value={value.getRawValue()}
 								placeholder="Telefone"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={15}
@@ -215,6 +214,7 @@ export default function SignUpPFForm({ navigation }) {
 								value={value}
 								placeholder="E-mail"
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={40}
 							/>
 						)}

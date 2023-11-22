@@ -54,6 +54,21 @@ export const schema = yup.object({
 		.min(3, "O nome da rua deve ter pelo menos 3 caracteres")
 		.max(40, "O nome da rua não deve exceder 40 caracteres"),
 
+	number: yup
+		.string()
+		.transform((value, originalValue) => {
+			if (originalValue) {
+				return originalValue.replace(/[^\d]/g, "");
+			}
+			return "";
+		})
+		.test("valid-number", "Digite um número válido", (value) => {
+			if (!value) return true;
+			const isNumberValid = value.length >= 1 && value.length <= 5;
+			return isNumberValid;
+		})
+		.required("Número é um campo obrigatório"),
+
 	password: yup
 		.string()
 		.min(6, "Senha deve ter no mínimo 6 caracteres")

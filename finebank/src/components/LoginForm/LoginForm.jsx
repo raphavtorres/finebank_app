@@ -62,6 +62,7 @@ export default function LoginForm({ navigation }) {
 				}}
 			>
 				<View style={styles.container}>
+					{/* CPF / CNPJ */}
 					<Controller
 						control={control}
 						name="cpfOrCnpj"
@@ -85,6 +86,7 @@ export default function LoginForm({ navigation }) {
 						<Text style={styles.labelError}>{errors.cpfOrCnpj?.message}</Text>
 					)}
 
+					{/* PASSWORD */}
 					<Controller
 						control={control}
 						name="password"
@@ -97,6 +99,7 @@ export default function LoginForm({ navigation }) {
 								placeholder="Sua senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={20}
 							/>
 						)}

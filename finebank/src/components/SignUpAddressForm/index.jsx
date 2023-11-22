@@ -19,6 +19,8 @@ import {
 	createPJ,
 	createAddress,
 	createAccount,
+	createPhone,
+	createEmail,
 } from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
@@ -34,8 +36,8 @@ export default function SignUpAddressForm({ navigation }) {
 	});
 
 	function transformDate(date) {
-		let slices = date.split("/");
-		return slices[2] + "-" + slices[0] + "-" + slices[1];
+		const slices = date.split("/");
+		return slices[2] + "-" + slices[1] + "-" + slices[0];
 	}
 
 	async function handleSignUp(data) {
@@ -44,12 +46,15 @@ export default function SignUpAddressForm({ navigation }) {
 			const signupData = await getSignUpData();
 
 			var registerNumber = "";
+			var date = "";
+			var accType = "";
+			var emailVar = "";
+			var telephoneVar = "";
+
 			const { neighborhood, street, number, city, state, cep, password } = data;
 
 			// testing account type and creating account
 			// NATURAL PERSON
-			var date = "";
-			var accType = "";
 			if (signupData.cpf) {
 				const {
 					cpf,
@@ -64,8 +69,10 @@ export default function SignUpAddressForm({ navigation }) {
 				registerNumber = cpf;
 				date = transformDate(birthdate);
 				accType = optionSelected;
+				emailVar = email;
+				telephoneVar = telephone;
 
-				await createPF(cpf, password, fullname, date, rg, socialname);
+				// await createPF(cpf, password, fullname, date, rg, socialname);
 
 				// LEGAL PERSON
 			} else if (signupData.cnpj) {
@@ -83,29 +90,43 @@ export default function SignUpAddressForm({ navigation }) {
 				registerNumber = cnpj;
 				date = transformDate(establishmentDate);
 				accType = optionSelected;
-				await createPJ(cnpj, password, fantasyName, date, im, ie, name);
+				emailVar = email;
+				telephoneVar = telephone;
+
+				// await createPJ(cnpj, password, fantasyName, date, im, ie, name);
 			}
 
 			// ACCOUNT
 			// optionSelected
 			await onRegister(registerNumber, password);
-			await createAccount(accType);
+			// await createAccount(accType);
 
 			// ADRESS
-			await createAddress(
-				neighborhood,
-				street,
-				number,
-				city,
-				state,
-				cep,
-				(customer = registerNumber)
-			);
+			// await createAddress(
+			// 	neighborhood,
+			// 	street,
+			// 	number,
+			// 	city,
+			// 	state,
+			// 	cep,
+			// 	(customer = registerNumber)
+			// );
+
+			// // EMAIL
+			// await createEmail(emailVar, (customer = registerNumber));
+
+			// TELEPHONE
+			const slices = telephoneVar.split(" ");
+			const phone = slices[1].replace("-", "");
+			const prefixNumber = slices[0].replace("(", "").replace(")", "");
+			console.log(phone);
+			console.log(prefixNumber);
+			await createPhone(phone, prefixNumber, (customer = registerNumber));
 		} catch (err) {
 			console.log(err);
 		}
 
-		navigation.navigate("Login");
+		// navigation.navigate("Login");
 	}
 
 	function getInput(error) {
@@ -172,7 +193,7 @@ export default function SignUpAddressForm({ navigation }) {
 						<Text style={styles.labelError}>{errors.state?.message}</Text>
 					)}
 
-					{/* City */}
+					{/* CITY */}
 					<Controller
 						control={control}
 						name="city"
@@ -233,7 +254,6 @@ export default function SignUpAddressForm({ navigation }) {
 								}}
 								onBlur={onBlur}
 								value={value}
-								// value={value.getRawValue()}
 								placeholder="Rua"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
@@ -242,6 +262,30 @@ export default function SignUpAddressForm({ navigation }) {
 					/>
 					{errors?.street && (
 						<Text style={styles.labelError}>{errors.street?.message}</Text>
+					)}
+
+					{/* NUMBER */}
+					<Controller
+						control={control}
+						name="number"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"only-numbers"}
+								style={getInput(errors.number)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("number");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="Número"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={5}
+							/>
+						)}
+					/>
+					{errors?.number && (
+						<Text style={styles.labelError}>{errors.number?.message}</Text>
 					)}
 
 					{/* PASSWORD */}
@@ -260,6 +304,7 @@ export default function SignUpAddressForm({ navigation }) {
 								placeholder="Senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={20}
 							/>
 						)}
@@ -284,6 +329,7 @@ export default function SignUpAddressForm({ navigation }) {
 								placeholder="Confirmar Senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={20}
 							/>
 						)}
