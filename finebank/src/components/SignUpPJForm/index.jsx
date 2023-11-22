@@ -215,7 +215,7 @@ export default function SignUpPFForm({ navigation }) {
 								value={value}
 								placeholder="Telefone"
 								placeholderTextColor={COLORS.primaryGray}
-								maxLength={14}
+								maxLength={15}
 							/>
 						)}
 					/>
@@ -238,6 +238,7 @@ export default function SignUpPFForm({ navigation }) {
 								value={value}
 								placeholder="E-mail"
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={40}
 							/>
 						)}

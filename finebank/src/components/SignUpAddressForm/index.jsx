@@ -21,6 +21,8 @@ import {
 	createAddress,
 	createPhone,
 	createEmail,
+	createPhone,
+	createEmail,
 } from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
@@ -58,6 +60,11 @@ export default function SignUpAddressForm({ navigation }) {
 			const signupData = await getSignUpData();
 
 			var registerNumber = "";
+			var date = "";
+			var accType = "";
+			var emailVar = "";
+			var telephoneVar = "";
+
 			const { neighborhood, street, number, city, state, cep, password } = data;
 
 			var date = "";
@@ -84,7 +91,7 @@ export default function SignUpAddressForm({ navigation }) {
 				emailVar = email;
 				telephoneVar = telephone;
 
-				await createPF(cpf, password, fullname, date, rg, socialname);
+				// await createPF(cpf, password, fullname, date, rg, socialname);
 
 				// LEGAL PERSON
 			} else if (signupData.cnpj) {
@@ -111,7 +118,7 @@ export default function SignUpAddressForm({ navigation }) {
 			// ACCOUNT
 			// optionSelected
 			await onRegister(registerNumber, password);
-			await createAccount(accType);
+			// await createAccount(accType);
 
 			// ADRESS
 			await createAddress(
@@ -134,7 +141,7 @@ export default function SignUpAddressForm({ navigation }) {
 			console.log(err);
 		}
 
-		navigation.navigate("Login");
+		// navigation.navigate("Login");
 	}
 
 	function getInput(error) {
@@ -201,7 +208,7 @@ export default function SignUpAddressForm({ navigation }) {
 						<Text style={styles.labelError}>{errors.state?.message}</Text>
 					)}
 
-					{/* City */}
+					{/* CITY */}
 					<Controller
 						control={control}
 						name="city"
@@ -312,6 +319,7 @@ export default function SignUpAddressForm({ navigation }) {
 								placeholder="Senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={20}
 							/>
 						)}
@@ -336,6 +344,7 @@ export default function SignUpAddressForm({ navigation }) {
 								placeholder="Confirmar Senha"
 								secureTextEntry={true}
 								placeholderTextColor={COLORS.primaryGray}
+								autoCapitalize="none"
 								maxLength={20}
 							/>
 						)}
