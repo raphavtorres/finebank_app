@@ -275,10 +275,10 @@ export async function createPhone(
 ) {
 	try {
 		const response = await axiosInstance.post("phones/", {
-			phone,
-			country_code,
-			prefix_number,
-			customer,
+			phone: phone,
+			country_code: country_code,
+			prefix_number: prefix_number,
+			customer: customer,
 		});
 		return response.data;
 	} catch (err) {

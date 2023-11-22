@@ -21,8 +21,6 @@ import {
 	createAddress,
 	createPhone,
 	createEmail,
-	createPhone,
-	createEmail,
 } from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
@@ -91,7 +89,7 @@ export default function SignUpAddressForm({ navigation }) {
 				emailVar = email;
 				telephoneVar = telephone;
 
-				// await createPF(cpf, password, fullname, date, rg, socialname);
+				await createPF(cpf, password, fullname, date, rg, socialname);
 
 				// LEGAL PERSON
 			} else if (signupData.cnpj) {
@@ -118,7 +116,7 @@ export default function SignUpAddressForm({ navigation }) {
 			// ACCOUNT
 			// optionSelected
 			await onRegister(registerNumber, password);
-			// await createAccount(accType);
+			await createAccount(accType);
 
 			// ADRESS
 			await createAddress(
@@ -141,7 +139,7 @@ export default function SignUpAddressForm({ navigation }) {
 			console.log(err);
 		}
 
-		// navigation.navigate("Login");
+		navigation.navigate("Login");
 	}
 
 	function getInput(error) {
