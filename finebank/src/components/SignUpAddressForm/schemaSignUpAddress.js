@@ -47,6 +47,11 @@ export const schema = yup.object({
 
 	street: yup
 		.string()
+		.min(1, "O nome da rua deve ter pelo menos 1 caractere")
+		.max(5, "O nome da rua não deve exceder 5 caracteres"),
+
+	street: yup
+		.string()
 		.matches(
 			/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/,
 			"Rua inválida. Use apenas letras e espaços."

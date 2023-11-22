@@ -17,8 +17,10 @@ import { getSignUpData } from "../../services/functions";
 import {
 	createPF,
 	createPJ,
-	createAddress,
 	createAccount,
+	createAddress,
+	createPhone,
+	createEmail,
 } from "../../services/api";
 
 export default function SignUpAddressForm({ navigation }) {
@@ -34,8 +36,20 @@ export default function SignUpAddressForm({ navigation }) {
 	});
 
 	function transformDate(date) {
-		let slices = date.split("/");
-		return slices[2] + "-" + slices[0] + "-" + slices[1];
+		const slices = date.split("/");
+		return slices[2] + "-" + slices[1] + "-" + slices[0];
+	}
+
+	function unmountTelephone(telephone) {
+		const slices = telephone
+			.replace("(", "")
+			.replace(")", "")
+			.replace("-", "")
+			.split(" ");
+
+		const phone = slices[1];
+		const prefix_number = slices[0];
+		return { phone: phone, prefix_number: prefix_number };
 	}
 
 	async function handleSignUp(data) {
@@ -46,10 +60,13 @@ export default function SignUpAddressForm({ navigation }) {
 			var registerNumber = "";
 			const { neighborhood, street, number, city, state, cep, password } = data;
 
-			// testing account type and creating account
-			// NATURAL PERSON
 			var date = "";
 			var accType = "";
+			var emailVar = "";
+			var telephoneVar = "";
+
+			// testing account type and creating account
+			// NATURAL PERSON
 			if (signupData.cpf) {
 				const {
 					cpf,
@@ -64,6 +81,8 @@ export default function SignUpAddressForm({ navigation }) {
 				registerNumber = cpf;
 				date = transformDate(birthdate);
 				accType = optionSelected;
+				emailVar = email;
+				telephoneVar = telephone;
 
 				await createPF(cpf, password, fullname, date, rg, socialname);
 
@@ -83,6 +102,9 @@ export default function SignUpAddressForm({ navigation }) {
 				registerNumber = cnpj;
 				date = transformDate(establishmentDate);
 				accType = optionSelected;
+				emailVar = email;
+				telephoneVar = telephone;
+
 				await createPJ(cnpj, password, fantasyName, date, im, ie, name);
 			}
 
@@ -101,6 +123,13 @@ export default function SignUpAddressForm({ navigation }) {
 				cep,
 				(customer = registerNumber)
 			);
+
+			// PHONE
+			const { phone, prefix_number } = unmountTelephone(telephoneVar);
+			await createPhone(phone, prefix_number, (customer = registerNumber));
+
+			// EMAIL
+			await createEmail(emailVar, (customer = registerNumber));
 		} catch (err) {
 			console.log(err);
 		}
@@ -233,7 +262,6 @@ export default function SignUpAddressForm({ navigation }) {
 								}}
 								onBlur={onBlur}
 								value={value}
-								// value={value.getRawValue()}
 								placeholder="Rua"
 								placeholderTextColor={COLORS.primaryGray}
 								maxLength={40}
@@ -242,6 +270,30 @@ export default function SignUpAddressForm({ navigation }) {
 					/>
 					{errors?.street && (
 						<Text style={styles.labelError}>{errors.street?.message}</Text>
+					)}
+
+					{/* NUMBER */}
+					<Controller
+						control={control}
+						name="number"
+						render={({ field: { onChange, onBlur, value } }) => (
+							<TextInputMask
+								type={"only-numbers"}
+								style={getInput(errors.number)}
+								onChangeText={(value) => {
+									onChange(value);
+									trigger("number");
+								}}
+								onBlur={onBlur}
+								value={value}
+								placeholder="Número"
+								placeholderTextColor={COLORS.primaryGray}
+								maxLength={5}
+							/>
+						)}
+					/>
+					{errors?.number && (
+						<Text style={styles.labelError}>{errors.number?.message}</Text>
 					)}
 
 					{/* PASSWORD */}
