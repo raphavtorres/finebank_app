@@ -6,6 +6,8 @@ import { useAuth } from "../context/AuthContext";
 import { getUsername } from "../services/functions";
 import { useEffect, useState } from "react";
 
+import UserPicture from "./UserPicture";
+
 export default function UserProfileHeader(props) {
 	const [username, setUsername] = useState("");
 	const { onLogout } = useAuth();
@@ -21,10 +23,11 @@ export default function UserProfileHeader(props) {
 		<View style={styles.container}>
 			<View style={styles.profileView}>
 				{/* props.url to image */}
-				<Image
+				{/* <Image
 					source={require("../assets/empty-img.png")}
 					style={styles.profilePic}
-				/>
+				/> */}
+				<UserPicture />
 				<Text style={styles.userName}>Olá, {username}</Text>
 			</View>
 

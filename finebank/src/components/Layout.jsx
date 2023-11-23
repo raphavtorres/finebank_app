@@ -29,7 +29,8 @@ export default function Layout() {
 					headerShown: false,
 				}}
 			>
-				{authState?.authenticated ? (
+				<Stack.Screen name="Home" component={Home} />
+				{/* {authState?.authenticated ? (
 					<>
 						<Stack.Screen name="Home" component={Home} />
 						<Stack.Screen name="Investment" component={Investment} />
@@ -46,7 +47,7 @@ export default function Layout() {
 						<Stack.Screen name="SignUpPJ" component={SignUpPJ} />
 						<Stack.Screen name="SignUpAddress" component={SignUpAddress} />
 					</>
-				)}
+				)} */}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

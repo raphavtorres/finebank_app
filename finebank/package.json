@@ -18,6 +18,7 @@
     "babel-plugin-react-native-classname-to-style": "^1.2.2",
     "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
     "expo": "~49.0.13",
+    "expo-image-picker": "~14.3.2",
     "expo-secure-store": "~12.3.1",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
