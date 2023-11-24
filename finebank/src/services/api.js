@@ -297,3 +297,24 @@ export async function createEmail(email, customer) {
 		alert(err, "Erro ao cadastrar email");
 	}
 }
+
+export async function updateProfilePic(image, userId) {
+	try {
+		const formData = new FormData();
+		formData.append("name", `image-user-${userId}`);
+		formData.append("file", {
+			uri: image.uri,
+			type: image.type,
+			name: image.fileName,
+		});
+
+		const response = await axiosInstance.post(`URL_API/`, formData, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
+		console.log("Resposta da API:", response.data);
+	} catch (error) {
+		console.error("Erro ao enviar a imagem para a API:", error);
+	}
+}
