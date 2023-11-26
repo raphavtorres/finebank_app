@@ -301,20 +301,33 @@ export async function createEmail(email, customer) {
 export async function updateProfilePic(image, userId) {
 	try {
 		const formData = new FormData();
-		formData.append("name", `image-user-${userId}`);
-		formData.append("file", {
+		const fileExtension = image.uri.split(".").pop();
+		formData.append("picture", {
 			uri: image.uri,
-			type: image.type,
-			name: image.fileName,
+			type: `image/${fileExtension}`,
+			name: `image-user-${userId}.${fileExtension}`,
 		});
 
-		const response = await axiosInstance.post(`URL_API/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		});
-		console.log("Resposta da API:", response.data);
-	} catch (error) {
-		console.error("Erro ao enviar a imagem para a API:", error);
+		const response = await axiosInstance.patch(
+			`profile-picture/${userId}/`,
+			formData,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		return response.data;
+	} catch (err) {
+		alert("Erro ao enviar a imagem para a API:", err);
+	}
+}
+
+export async function getProfilePic() {
+	try {
+		const response = await axiosInstance.get(`profile-picture/`);
+		return response.data;
+	} catch (err) {
+		alert("Erro ao enviar a imagem para a API:", err);
 	}
 }

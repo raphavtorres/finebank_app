@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { View, Pressable, Image } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
 
-import { updateProfilePic } from "../services/api";
+import { updateProfilePic, getProfilePic } from "../services/api";
 import { getUserId } from "../services/functions";
 
 export default function UserPicture() {
 	const [picture, setPicture] = useState(
 		"https://static-00.iconduck.com/assets.00/profile-major-icon-512x512-xosjbbdq.png"
 	);
+	const [imgFromPick, setImgFromPick] = useState();
+
+	useEffect(() => {
+		async function fetchData() {
+			const profilePic = await getProfilePic();
+			profilePic && setPicture(profilePic[0].picture);
+		}
+		fetchData();
+	}, [imgFromPick]);
 
 	async function pickImage() {
 		const result = await ImagePicker.launchImageLibraryAsync({
@@ -20,12 +29,11 @@ export default function UserPicture() {
 			quality: 1,
 		});
 
-		console.log(result);
-
 		if (!result.canceled) {
-			const profilePic = result.assets[0].uri;
+			const profilePic = result.assets[0];
 			const userId = await getUserId();
 			await updateProfilePic(profilePic, userId);
+			setImgFromPick(profilePic);
 		} else {
 			alert("Erro ao escolher a imagem.");
 		}

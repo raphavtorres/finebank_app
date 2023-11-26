@@ -9,7 +9,7 @@ import {
 
 export async function getUserId() {
 	const userJson = JSON.parse(await storeGet(USER_JSON));
-	return userJson.id;
+	return userJson.customer;
 }
 
 export async function getUsername() {
