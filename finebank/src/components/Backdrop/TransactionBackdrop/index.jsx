@@ -38,7 +38,6 @@ export default function TransactionBackdrop(props) {
 			transactionAmount,
 			paymentMethod
 		);
-		alert("Transação realizada com sucesso!");
 		props.navigation.navigate("Home");
 	}
 

@@ -22,19 +22,21 @@ export const styles = StyleSheet.create({
 
 	title: {
 		marginTop: 54,
+		marginLeft: 20,
 		width: 399,
 		color: COLORS.primaryWhite,
 		// fontFamily: "Inter",
-		fontSize: 36,
+		fontSize: 34,
 		fontWeight: "500",
 	},
 
 	parag: {
 		marginTop: 15,
+		marginLeft: 20,
 		width: 399,
 		color: COLORS.primaryWhite,
 		// font-family: Inter,
-		fontSize: 20,
+		fontSize: 18,
 		fontWeight: "300",
 	},
 });

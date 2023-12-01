@@ -61,13 +61,15 @@ export async function getStatements(account) {
 export async function getLoans(account) {
 	try {
 		const response = await axiosInstance.get(`loans/?account=${account}`);
-		return response.data.filter((loan) => !loan.is_payout);
+		return response.data
+			.filter((loan) => !loan.is_payout)
+			.filter((loan) => loan.is_approved);
 	} catch (err) {
 		alert(err, " | erro ao pegar os empréstimos");
 	}
 }
 
-// Requesting loan
+// Requesting loans
 export async function postLoan(
 	account,
 	amount_request,
@@ -81,6 +83,7 @@ export async function postLoan(
 			installment_amount: installment_amount,
 			observation: observation,
 		});
+		alert("Pedido de empréstimo realizada com sucesso!");
 		return response.data;
 	} catch (err) {
 		alert("Não elegível para receber o empréstimo");
@@ -173,9 +176,10 @@ export async function makeTransaction(
 			amount: amount,
 			transaction_type: transaction_type,
 		});
+		alert("Transação realizada com sucesso!");
 		return response.data;
 	} catch (err) {
-		alert(err, "Não há saldo suficiente para fazer a transação!");
+		alert("Erro ao fazer transação!");
 	}
 }
 

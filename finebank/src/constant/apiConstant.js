@@ -1,6 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 
-export const API_URL = "http://192.168.1.11:8000/api/v1/";
+export const API_URL = "http://192.168.56.1:8000/api/v1/";
 export const JWT_KEY = "my-jwt";
 export const USER_JSON = "user-json";
 export const USER_TYPE = "user-type";
