@@ -1,0 +1,25 @@
+Para rodar a API:
+   Clonar o repositório "finebank_db"
+   Crie um ambiente virtual e instale as dependencias com "requirements.txt"
+   Apague, caso existam: 
+      0001_initial.py
+      db.sqlite3
+      __pycache__
+
+   Em um terminal rode esses comandos:
+      py manage.py makemigrations
+      py manage.py migrate
+      py manage.py createsuperuser
+      py manage.py runserver <seu_ip>:8000
+
+   Vá no arquivo py populate.py atualize a constante "BASE_URL" para o seu ip
+   Em outro terminal (com venv ativada) e rode:
+      py populate.py
+
+   Caso queira fazer login com os usuários já populados no banco utilize "test@test"
+
+
+Para rodar o frontend:
+   Abra o terminal e rode o comando "yarn" para instalar as dependencias
+   Vá em src/constant/apiConstant.js e atualize a constante "API_URL" com o seu ip
+   Rode "yarn expo start" para iniciar o projeto
